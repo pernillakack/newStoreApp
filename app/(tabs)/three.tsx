@@ -2,16 +2,19 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
-import Scanner from '../../components/scanner';
 
-export default function TabTwoScreen(props:{ codes: any;}) {
-const codes = props.codes;
+
+
+
+export default function Three() {
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Scanner</Text>
+      <Text style={styles.title}>Tab Three</Text>
+      <Text>Skannad kod : </Text>
+      
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Scanner />
-    
+      <EditScreenInfo path="app/(tabs)/three.tsx" />
     </View>
   );
 }
