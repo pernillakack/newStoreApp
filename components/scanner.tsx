@@ -5,9 +5,30 @@ import { BarCodeScanner} from 'expo-barcode-scanner';
 function Scanner(){
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);
-const [text, setText] = useState('Not yet scanned');
+const [text, setText] = useState('Skanna första koden');
+const [newCodes, setNewCodes] = useState<string[]> ([]);
 
-const codes: string [] = [];
+const partOfCode = newCodes.map((str)=> str.substring(9));
+
+let buttonTitle;
+
+switch(newCodes.length){
+  case 0:
+    buttonTitle ='Skanna din första kod';
+    break;
+    case 1:
+      buttonTitle='Skanna andra koden';
+      break;
+      case 2:
+        buttonTitle='Skanna sista koden';
+        break;
+        case 3:
+          buttonTitle='Bra jobbat! Nu fixar vi bilden :)';
+          break;
+          default:
+            buttonTitle= 'Vad händer?! :)'
+        
+}
 
   const grantedCameraPermission = () => {
     (async () => {
@@ -31,13 +52,17 @@ const codes: string [] = [];
   //what happens when we scan the barcode
   const handleBarCodeScanned = ({type, data}: { type: string, data: string }) => {
     
-    setScanned(true);
+    
     setText(data);
+  
+    if(newCodes.length < 3) {
+    newCodes.push(data);
+    setNewCodes((prevCodes) => [...prevCodes, data]);
+    }
     
-    console.log('Type' + type + '\nData' + data);
-    
-    
-    
+    setScanned(true);
+    setNewCodes(newCodes);
+    console.log('Type: ' + type + '\nData: ' + data + '\nArray: ' + JSON.stringify([newCodes]));
     
   }
   //check permissions and return the screens
@@ -69,7 +94,11 @@ return(
       </View>
       <Text style={styles.maintext}>{text}</Text>
       
-      {scanned && <Button title={'Scan again?'} onPress={() => setScanned(false)} color='tomato'></Button> }
+      <Text>{}</Text>
+      <Text style={styles.maintext}>{JSON.stringify(newCodes)}</Text>
+      <Text>{partOfCode}</Text>
+      
+      {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
     </View>  
 )
 }
@@ -79,6 +108,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+    
     },
     maintext: {
       fontSize: 16,
