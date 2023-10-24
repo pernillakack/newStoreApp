@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { BarCodeScanner} from 'expo-barcode-scanner';
+import { FontAwesome5 } from '@expo/vector-icons';
+import iconSet from '@expo/vector-icons/build/Fontisto';
 
 function Scanner(){
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -10,7 +12,9 @@ const [newCodes, setNewCodes] = useState<string[]> ([]);
 
 const partOfCode = newCodes.map((str)=> str.substring(9));
 
+
 let buttonTitle;
+let icon;
 
 switch(newCodes.length){
   case 0:
@@ -18,15 +22,19 @@ switch(newCodes.length){
     break;
     case 1:
       buttonTitle='Skanna andra koden';
+      icon="laugh-beam";
       break;
       case 2:
         buttonTitle='Skanna sista koden';
+        icon='grin-stars';
         break;
         case 3:
           buttonTitle='Bra jobbat! Nu fixar vi bilden :)';
+          icon='image';
           break;
           default:
             buttonTitle= 'Vad händer?! :)'
+            icon='poo';
         
 }
 
@@ -93,12 +101,10 @@ return(
         style = {{height:400, width: 400}}/>
       </View>
       <Text style={styles.maintext}>{text}</Text>
-      
-      <Text>{}</Text>
-      <Text style={styles.maintext}>{JSON.stringify(newCodes)}</Text>
       <Text>{partOfCode}</Text>
       
       {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
+      <Text><FontAwesome5 name={icon} size={100} color="black" /></Text>
     </View>  
 )
 }
