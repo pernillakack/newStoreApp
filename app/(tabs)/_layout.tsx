@@ -20,7 +20,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const[partOfCode, setPartOfCode]= useState(codeContext);
   return (
-    <codeContext.Provider value={{partOfCode, setPartOfCode}}>
+    
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -61,6 +61,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
-    </codeContext.Provider>
+   
   );
 }

@@ -4,17 +4,20 @@ import { BarCodeScanner} from 'expo-barcode-scanner';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createContext } from 'react';
 import { codeContext } from '../Context/codeContext';
+import TabTwoScreen from '../app/(tabs)/two';
+import Two from '../app/(tabs)/two';
 
 function Scanner(){
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);
 const [text, setText] = useState('Skanna första koden');
 const [newCodes, setNewCodes] = useState<string[]> ([]);
+const [partOfCode, setPartOfCode] = useContext(codeContext);
 
 //kortar ner de skannade koderna till 4 siffror var
 const code = newCodes.map((str)=> str.substring(9));
 
-const codeContext = createContext(code);
+setPartOfCode(code);
 
 let buttonTitle;
 let icon;
@@ -105,12 +108,15 @@ return(
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned }
         style = {{height:400, width: 400}}/>
       </View>
+      <codeContext.Provider value={[partOfCode, setPartOfCode]}>
       <Text style={styles.maintext}>{text}</Text>
       <Text>{'partofcode: ' + code}</Text>
       <Text>{'newcodes: ' + newCodes}</Text>
       
       {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
       <Text><FontAwesome5 name={icon} size={100} color="black" /></Text>
+      
+      </codeContext.Provider>
     </View>  
 )
 }

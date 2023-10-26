@@ -1,4 +1,3 @@
 import { createContext } from "react";
 
-export const codeContext = createContext([]);
-
+export const codeContext = createContext([String]);
