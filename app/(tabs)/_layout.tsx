@@ -3,6 +3,8 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import { codeContext } from '../../Context/codeContext';
+import { Children, useState } from 'react';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -16,8 +18,9 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const codes = [];
+  const[partOfCode, setPartOfCode]= useState(codeContext);
   return (
+    <codeContext.Provider value={{partOfCode, setPartOfCode}}>
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -58,5 +61,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </codeContext.Provider>
   );
 }

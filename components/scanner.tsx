@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { BarCodeScanner} from 'expo-barcode-scanner';
 import { FontAwesome5 } from '@expo/vector-icons';
-import iconSet from '@expo/vector-icons/build/Fontisto';
+import { createContext } from 'react';
+import { codeContext } from '../Context/codeContext';
 
 function Scanner(){
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -10,8 +11,10 @@ const [scanned, setScanned] = useState(false);
 const [text, setText] = useState('Skanna första koden');
 const [newCodes, setNewCodes] = useState<string[]> ([]);
 
-const partOfCode = newCodes.map((str)=> str.substring(9));
+//kortar ner de skannade koderna till 4 siffror var
+const code = newCodes.map((str)=> str.substring(9));
 
+const codeContext = createContext(code);
 
 let buttonTitle;
 let icon;
@@ -80,7 +83,9 @@ switch(newCodes.length){
       <Text>Do you allow us to use the camera?</Text>
       <Button title='Yes' onPress={grantedCameraPermission} />
       <Button title='No' onPress={deniedCameraPermission} />
+      
     </View>
+    
     )
   }
   if(hasPermission === false) {
@@ -101,7 +106,8 @@ return(
         style = {{height:400, width: 400}}/>
       </View>
       <Text style={styles.maintext}>{text}</Text>
-      <Text>{partOfCode}</Text>
+      <Text>{'partofcode: ' + code}</Text>
+      <Text>{'newcodes: ' + newCodes}</Text>
       
       {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
       <Text><FontAwesome5 name={icon} size={100} color="black" /></Text>
