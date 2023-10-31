@@ -4,11 +4,11 @@ import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import Scanner from '../../components/scanner';
 import React, { Children, useContext, useState } from 'react';
-import { codeContext } from '../../Context/codeContext';
+
 
 
 export default function TabTwoScreen() {
-  const code = useContext(codeContext);
+  //const code = useContext(codeContext);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Scanner</Text>

@@ -18,7 +18,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const[partOfCode, setPartOfCode]= useState(codeContext);
+  
   return (
     
     <Tabs
