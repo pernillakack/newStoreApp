@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
-import { codeContext } from "../Context/codeContext";
+
 
 interface Props {
   scannedItems: (scanOne: string, scanTwo: string, scanThree: string) => void;
@@ -12,6 +12,16 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
     // Update the state when props change (e.g., when scannedItems is called)
     
   }, [props.scannedItems]);
+
+  type ScannedItems = {
+    scanOne: string;
+    scanTwo: string;
+    scanThree: string;
+  }
+
+  const codes = (props: ScannedItems) => {
+    console.log('RenderImage, scanOne: ' + props.scanOne);
+  }
  
 
   function getScannedCodes() {
@@ -33,17 +43,71 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
         return (
           <View style={styles.container}>
             <Image
-              source={{ uri:'https://pixijs.com/assets/bunny.png'}}
+              source={{ uri:'https://pixijs.com/assets/flowerTop.png'}}
               style={styles.image}
             />
           </View>
         );
-        
-    }*/}
+            break;
+            case 2:
+              <View style={styles.container}>
+                <Image
+                  source={{ uri:'https://pixijs.com/assets/maggot_tiny.png'}}
+                  style={styles.image}
+                />
+              </View>
+            );
+            break;
+            case 3:
+              <View style={styles.container}>
+                <Image
+                  source={{ uri:'https://pixijs.com/assets/eggHead.png'}}
+                  style={styles.image}
+                />
+              </View>
+            );
+            break;
+              case 4:
+              <View style={styles.container}>
+                <Image
+                  source={{ uri:'https://pixijs.com/assets/helmlok.png'}}
+                  style={styles.image}
+                />
+              </View>
+            );
+            break;
+            case 5:
+              <View style={styles.container}>
+                <Image
+                  source={{ uri:'https://pixijs.com/assets/skully.png'}}
+                  style={styles.image}
+                />
+              </View>
+            );
+            break; 
+              case 6:
+              <View style={styles.container}>
+                <Image
+                  source={{ uri:'https://cdn.pixabay.com/photo/2017/11/06/18/30/eggplant-2924511_640.png'}}
+                  style={styles.image}
+                />
+              </View>
+            );
+            break;
+              case :
+              <View style={styles.container}>
+                <Image
+                  source={{ uri:'https://cdn.pixabay.com/photo/2017/11/06/18/30/eggplant-2924511_640.png'}}
+                  style={styles.image}
+                />
+              </View>
+            );
+            break;
+        }*/}
     return (
       <View style={styles.container}>
         <Image
-          source={{uri:'https://pixijs.com/assets/bunny.png'}}
+          source={{uri:'https://pixijs.com/assets/eggHead.png'}}
           style={styles.image}
         />
       </View>
