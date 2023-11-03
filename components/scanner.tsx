@@ -1,32 +1,54 @@
-import React, {useState, useEffect, useContext, Component} from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { BarCodeScanner} from 'expo-barcode-scanner';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { createContext } from 'react';
-import { codeContext } from '../Context/codeContext';
-import TabTwoScreen from '../app/(tabs)/two';
-import Two from '../app/(tabs)/two';
-import ExpoPixi from 'expo';
-import { GLView } from 'expo-gl';
 import RenderImage from './RenderImage';
+import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
-function Scanner(){
+interface Props{
+  scannedItems: (scanOne: string, scanTwo: string, scanThree: string) => void;
+}
+
+function Scanner(props: { scannedItems: Props ['scannedItems'] }){
+ 
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);
 const [text, setText] = useState('Skanna första koden');
 const [newCodes, setNewCodes] = useState<string[]> ([]);
-const [threeScans, setThreeScans] = useState(false);
-//const [partOfCode, setPartOfCode] = useContext(codeContext);
+
 
 //kortar ner de skannade koderna till 4 siffror var
 const code = newCodes.map((str)=> str.substring(9));
 
-//setPartOfCode(code);
+
 
 let buttonTitle;
 let icon;
 
-
+switch(newCodes.length){
+  case 0:
+    buttonTitle ='Skanna din första kod';
+    break;
+    case 1:
+      buttonTitle='Skanna andra koden';
+      icon="laugh-beam";
+      break;
+      case 2:
+        buttonTitle='Skanna sista koden';
+        icon='grin-stars';
+        break;
+        case 3:
+          buttonTitle='Bra jobbat! Nu fixar vi bilden :)';
+          icon='image';
+         
+              <RenderImage scannedItems={function (scanOne: string, scanTwo: string, scanThree: string): void {
+                throw new Error('Function not implemented.');
+              } } />
+           
+          break;
+          default:
+            buttonTitle= 'Vad händer?! :)'
+            icon='poo';
+}
 
   const grantedCameraPermission = () => {
     (async () => {
@@ -49,11 +71,16 @@ let icon;
 
   //what happens when we scan the barcode
   const handleBarCodeScanned = ({type, data}: { type: string, data: string }) => {
-    
     setText(data);
+    newCodes.push(data);
+    setNewCodes((prevCodes) => [...prevCodes, data]);
+    
+    const [scanOne, scanTwo, scanThree] = newCodes;
+    props.scannedItems(scanOne, scanTwo, scanThree);
+   
     setScanned(true);
     setNewCodes(newCodes);
-    console.log('Type: ' + type + '\nData: ' + data + '\nArray: ' + JSON.stringify([newCodes]));
+    console.log('Type: ' + type + '\nData: ' + data + '\nscanOne: ' + scanOne+ '\nscanTwo: '+scanTwo+ '\nscanThree: ' + scanThree + '\ndelad: '+code);
     
   }
   //check permissions and return the screens
@@ -76,13 +103,8 @@ let icon;
     </View>
     )
   }
-  if(scanned === true) {
-    return(
-      <View>
-        <RenderImage />
-      </View>
-    )
-  }
+ 
+
 return(
     <View style={styles.container}>
       <View style={styles.barcodebox}>
@@ -94,6 +116,11 @@ return(
       <Text style={styles.maintext}>{text}</Text>
       <Text>{'partofcode: ' + code}</Text>
       <Text>{'newcodes: ' + newCodes}</Text>
+      
+      {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
+      <Text><FontAwesome5 name={icon} size={100} color="black" /></Text>
+      
+      
     </View>  
 )
 }
