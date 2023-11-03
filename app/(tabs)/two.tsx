@@ -6,7 +6,9 @@ import Scanner from '../../components/scanner';
 import React, { Children, useContext, useState } from 'react';
 
 import RenderImage from '../../components/RenderImage';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import Stack from 'expo-router/build/layouts/Stack';
+
 
 interface Props{
   scannedItems: (scanOne: string, scanTwo: string, scanThree: string) => void;
@@ -14,20 +16,13 @@ interface Props{
 }
 
 export default function TabTwoScreen(props: { scannedItems: Props ['scannedItems'] }) {
-  const navigation = useNavigation();
+  
 
   function handleScannedItems(scanOne: string, scanTwo: string, scanThree: string) {
-    if(scanThree){
-      return(
-        <View>
-         <RenderImage scannedItems={function (scanOne: string, scanTwo: string, scanThree: string): void {
-            throw new Error('Function not implemented.');
-          } } />
-        </View>
-      )
-    }
+    
     console.log('ScannedItems from TabTwoScreen, 1: '+ scanOne + ' 2: '+ scanTwo + ' 3: ' + scanThree);
   }
+
 
   
     
@@ -38,7 +33,6 @@ export default function TabTwoScreen(props: { scannedItems: Props ['scannedItems
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
      
       <Scanner scannedItems={(scanOne, scanTwo, scanThree) => handleScannedItems(scanOne, scanTwo, scanThree)} />
-    
     </View>
   );
 }
