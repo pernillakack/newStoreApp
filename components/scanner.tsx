@@ -9,9 +9,7 @@ interface Props{
   scannedItems: (scanOne: string, scanTwo: string, scanThree: string) => void;
 }
 
-function Scanner(props: { 
-  scannedItems: Props ['scannedItems'] 
-}){
+function Scanner(props:Props ){
  
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);

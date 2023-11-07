@@ -8,11 +8,11 @@ import RenderImage from '../../components/RenderImage';
 
 
 interface Props{
-  scannedItems: (scanOne: string, scanTwo: string, scanThree: string) => void;
+  scannedItems: {scanOne: string, scanTwo: string, scanThree: string}
   
 }
 
-export default function TabTwoScreen(props: { scannedItems: Props ['scannedItems'] }) {
+export default function TabTwoScreen(props: Props) {
   const[showRenderImage, setShowRenderImage] = useState(false);
   const[scannedData, setScannedData] = useState({scanOne:'', scanTwo:'', scanThree:''})
 
@@ -30,9 +30,7 @@ export default function TabTwoScreen(props: { scannedItems: Props ['scannedItems
   return (
     <View style={styles.container}>
       {showRenderImage ? (
-        <RenderImage scannedItems={function (scanOne: string, scanTwo: string, scanThree: string): void {
-          throw new Error('Function not implemented.');
-        } } />
+        <RenderImage scannedItems={scannedData} />
       ) : (
         <>
       <Text style={styles.title}>Scanner</Text>
