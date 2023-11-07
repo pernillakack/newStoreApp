@@ -8,27 +8,22 @@ interface Props {
 
 function RenderImage(props: Props) {
   const { scanOne, scanTwo, scanThree } = props.scannedItems;
-  
-  const { scannedItems } = props;
+
+  if(scanThree){
+  //plocka ut de fyra sista tecknen i scanOne:
+  let slicedScan = scanOne.slice(-4);
+  //gör om strängen till number:
+  let str: string = slicedScan;
+  let num: number = +str;
 
   console.log('From RenderImage. scanOne: ' + scanOne + ' scanTwo: '+ scanTwo + ' scanThree: '+ scanThree);
- 
-  function getScannedCodes() {
     
-  }
-  
-    switch(getScannedCodes.length){
-      case 0:
-        return (
-          <View style={styles.container}>
-            <Image
-              source={{uri:'https://pixijs.com/assets/bunny.png'}}
-              style={styles.image}
-            />
-          </View>
-        );
-        break;
-      case 1:
+    
+    
+    console.log(' converted scanOne: ' + num + ' slicedScan:' + slicedScan);
+    
+    switch (true) {
+      case num >= 0 && num <= 1999:
         return (
           <View style={styles.container}>
             <Image
@@ -37,82 +32,47 @@ function RenderImage(props: Props) {
             />
           </View>
         );
-            break;
-            case 2:
-              return(
-              <View style={styles.container}>
-                <Image
-                  source={{ uri:'https://pixijs.com/assets/maggot_tiny.png'}}
-                  style={styles.image}
-                />
-              </View>
-            );
-            break;
-            case 3:
-              return(
-              <View style={styles.container}>
-                <Image
-                  source={{ uri:'https://pixijs.com/assets/eggHead.png'}}
-                  style={styles.image}
-                />
-              </View>
-            );
-            break;
-              case 4:
-                return(
-              <View style={styles.container}>
-                <Image
-                  source={{ uri:'https://pixijs.com/assets/helmlok.png'}}
-                  style={styles.image}
-                />
-              </View>
-            );
-            break;
-            case 5:
-              return(
-              <View style={styles.container}>
-                <Image
-                  source={{ uri:'https://pixijs.com/assets/skully.png'}}
-                  style={styles.image}
-                />
-              </View>
-            );
-            break; 
-              case 6:
-                return(
-              <View style={styles.container}>
-                <Image
-                  source={{ uri:'https://cdn.pixabay.com/photo/2017/11/06/18/30/eggplant-2924511_640.png'}}
-                  style={styles.image}
-                />
-              </View>
-            );
-            break;
-              case 7:
-                return(
-              <View style={styles.container}>
-                <Image
-                  source={{ uri:'https://cdn.pixabay.com/photo/2017/11/06/18/30/eggplant-2924511_640.png'}}
-                  style={styles.image}
-                />
-              </View>
-            );
-            break;
-        }
-       
-        
-    return (
-      
-      <View style={styles.container}>
-      
-        <Image
-          source={{uri:'https://pixijs.com/assets/eggHead.png'}}
-          style={styles.image}
-        />
-      </View>
-    );
-    
+            case num >= 2000 && num <= 3999:
+              return (
+                <View style={styles.container}>
+                  <Image
+                    source={{ uri:'https://pixijs.com/assets/skully.png'}}
+                    style={styles.image}
+                  />
+                </View>
+              );
+      case num >= 4000 && num <= 5999:
+        return(
+          <View style={styles.container}>
+            <Image
+              source={{ uri:'https://pixijs.com/assets/eggHead.png'}}
+              style={styles.image}
+            />
+          </View>
+        );
+      case num >= 6000 && num <= 7999:
+        return(
+          <View style={styles.container}>
+            <Image
+              source={{ uri:'https://pixijs.com/assets/helmlok.png'}}
+              style={styles.image}
+            />
+          </View>
+        );
+        case num >= 8000 && num <= 9999:
+          return(
+            <View style={styles.container}>
+              <Image
+                source={{uri:'https://pixijs.com/assets/bunny.png'}}
+                style={styles.image}
+              />
+            </View>
+          );
+      default:
+        return null; // Handle numbers outside the valid range
     }
+  }
+  }
     const styles = StyleSheet.create({
         container: {
             flex: 1,
