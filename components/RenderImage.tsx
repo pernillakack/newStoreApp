@@ -13,17 +13,8 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
     
   }, [props.scannedItems]);
 
-  type ScannedItems = {
-    scanOne: string;
-    scanTwo: string;
-    scanThree: string;
-  }
-
-  const codes = (props: ScannedItems) => {
-    console.log('RenderImage, scanOne: ' + props.scanOne);
-  }
- 
-
+    
+  {/*
   function getScannedCodes() {
     const scanOne= '';
     const scanTwo = '';
@@ -32,10 +23,11 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
     
     console.log('From RenderImage. scanOne:' + {scanOne}+ 'scanTwo'+{scanTwo}+'scanthree'+{scanThree})
   }
-  
+  */}
   let pic;
 
-   {/*} switch(getScannedCodes.length){
+    {/*
+    switch(getScannedCodes.length){
       case 0:
         pic={uri:'https://pixijs.com/assets/bunny.png'};
         break;
@@ -50,6 +42,7 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
         );
             break;
             case 2:
+              return(
               <View style={styles.container}>
                 <Image
                   source={{ uri:'https://pixijs.com/assets/maggot_tiny.png'}}
@@ -59,6 +52,7 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
             );
             break;
             case 3:
+              return(
               <View style={styles.container}>
                 <Image
                   source={{ uri:'https://pixijs.com/assets/eggHead.png'}}
@@ -68,6 +62,7 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
             );
             break;
               case 4:
+                return(
               <View style={styles.container}>
                 <Image
                   source={{ uri:'https://pixijs.com/assets/helmlok.png'}}
@@ -77,6 +72,7 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
             );
             break;
             case 5:
+              return(
               <View style={styles.container}>
                 <Image
                   source={{ uri:'https://pixijs.com/assets/skully.png'}}
@@ -86,6 +82,7 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
             );
             break; 
               case 6:
+                return(
               <View style={styles.container}>
                 <Image
                   source={{ uri:'https://cdn.pixabay.com/photo/2017/11/06/18/30/eggplant-2924511_640.png'}}
@@ -94,7 +91,8 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
               </View>
             );
             break;
-              case :
+              case 7:
+                return(
               <View style={styles.container}>
                 <Image
                   source={{ uri:'https://cdn.pixabay.com/photo/2017/11/06/18/30/eggplant-2924511_640.png'}}
@@ -103,9 +101,13 @@ function RenderImage(props: { scannedItems: Props ['scannedItems'] }) {
               </View>
             );
             break;
-        }*/}
+        }
+        */}
+        
     return (
+      
       <View style={styles.container}>
+      
         <Image
           source={{uri:'https://pixijs.com/assets/eggHead.png'}}
           style={styles.image}
