@@ -1,25 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import { BarCodeScanner} from 'expo-barcode-scanner';
 import RenderImage from './RenderImage';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
+import { Link, useNavigation } from 'expo-router';
 
 interface Props{
   scannedItems: (scanOne: string, scanTwo: string, scanThree: string) => void;
 }
 
-function Scanner(props: { scannedItems: Props ['scannedItems'] }){
+function Scanner(props: { 
+  scannedItems: Props ['scannedItems'] 
+}){
  
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);
 const [text, setText] = useState('Skanna första koden');
 const [newCodes, setNewCodes] = useState<string[]> ([]);
 
-
 //kortar ner de skannade koderna till 4 siffror var
 const code = newCodes.map((str)=> str.substring(9));
-
-
 
 let buttonTitle;
 let icon;
@@ -39,10 +39,7 @@ switch(newCodes.length){
         case 3:
           buttonTitle='Bra jobbat! Nu fixar vi bilden :)';
           icon='image';
-         
-              <RenderImage scannedItems={function (scanOne: string, scanTwo: string, scanThree: string): void {
-                throw new Error('Function not implemented.');
-              } } />
+          
            
           break;
           default:
@@ -82,6 +79,7 @@ switch(newCodes.length){
     setNewCodes(newCodes);
     console.log('Type: ' + type + '\nData: ' + data + '\nscanOne: ' + scanOne+ '\nscanTwo: '+scanTwo+ '\nscanThree: ' + scanThree + '\ndelad: '+code);
     
+  
   }
   //check permissions and return the screens
   if(hasPermission === null) {
@@ -90,7 +88,6 @@ switch(newCodes.length){
       <Text>Do you allow us to use the camera?</Text>
       <Button title='Yes' onPress={grantedCameraPermission} />
       <Button title='No' onPress={deniedCameraPermission} />
-      
     </View>
     
     )
@@ -119,8 +116,7 @@ return(
       
       {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
       <Text><FontAwesome5 name={icon} size={100} color="black" /></Text>
-      
-      
+     
     </View>  
 )
 }
