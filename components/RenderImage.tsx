@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet, Button } from "react-native";
+import ImageGenerator from "./ImageGenerator";
 
 
 interface Props {
-  scannedItems: {scanOne: string, scanTwo: string, scanThree: string};
+  scannedItems: {scanOne: string; scanTwo: string; scanThree: string};
   setShowRenderImage: (open: boolean) => void;
 }
 
 function RenderImage(props: Props) {
   const { scanOne, scanTwo, scanThree } = props.scannedItems;
-  const setShowRenderImage = props.setShowRenderImage;
+  const {setShowRenderImage} = props;
 
   if(scanThree){
   //plocka ut de fyra sista tecknen i scanOne:
@@ -20,9 +21,11 @@ function RenderImage(props: Props) {
   
   console.log('From RenderImage. scanOne: ' + scanOne + ' scanTwo: '+ scanTwo + ' scanThree: '+ scanThree);
     
-    
+  
     
     console.log(' converted scanOne: ' + num + ' slicedScan:' + slicedScan);
+
+
 
     
     switch (true) {
@@ -65,10 +68,11 @@ function RenderImage(props: Props) {
         case num >= 8000 && num <= 9999:
           return(
             <View style={styles.container}>
-              <Image
-                source={{uri:'https://pixijs.com/assets/bunny.png'}}
-                style={styles.image}
-              />
+             <ImageGenerator scannedItems={{
+    scanOne: "",
+    scanTwo: "",
+    scanThree: ""
+  }} setShowRenderImage={setShowRenderImage} />  
               <View>
                 <Button title='Tillbaka till scannern' onPress={()=> setShowRenderImage(false)} />
               </View>
@@ -76,9 +80,11 @@ function RenderImage(props: Props) {
           );
       default:
         return null; // Handle numbers outside the valid range
-    }
+    
   }
   }
+  
+}
     const styles = StyleSheet.create({
         container: {
             flex: 1,
