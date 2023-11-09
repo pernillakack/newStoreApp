@@ -1,7 +1,7 @@
 import { StyleSheet, Image } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Scanner from '../../components/scanner';
-import React, { Children, useContext, useState } from 'react';
+import React, { Children, Dispatch, SetStateAction, useContext, useState } from 'react';
 
 import RenderImage from '../../components/RenderImage';
 
@@ -9,6 +9,7 @@ import RenderImage from '../../components/RenderImage';
 
 interface Props{
   scannedItems: {scanOne: string, scanTwo: string, scanThree: string}
+  setShowRenderImage: Dispatch<SetStateAction<boolean>>;
   
 }
 
@@ -30,7 +31,7 @@ export default function TabTwoScreen(props: Props) {
   return (
     <View style={styles.container}>
       {showRenderImage ? (
-        <RenderImage scannedItems={scannedData} />
+        <RenderImage scannedItems={scannedData} setShowRenderImage={setShowRenderImage} />
       ) : (
         <>
       <Text style={styles.title}>Scanner</Text>

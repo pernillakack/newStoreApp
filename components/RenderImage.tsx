@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Button } from "react-native";
 
 
 interface Props {
   scannedItems: {scanOne: string, scanTwo: string, scanThree: string};
+  setShowRenderImage: (open: boolean) => void;
 }
 
 function RenderImage(props: Props) {
   const { scanOne, scanTwo, scanThree } = props.scannedItems;
+  const setShowRenderImage = props.setShowRenderImage;
 
   if(scanThree){
   //plocka ut de fyra sista tecknen i scanOne:
@@ -15,12 +17,13 @@ function RenderImage(props: Props) {
   //gör om strängen till number:
   let str: string = slicedScan;
   let num: number = +str;
-
+  
   console.log('From RenderImage. scanOne: ' + scanOne + ' scanTwo: '+ scanTwo + ' scanThree: '+ scanThree);
     
     
     
     console.log(' converted scanOne: ' + num + ' slicedScan:' + slicedScan);
+
     
     switch (true) {
       case num >= 0 && num <= 1999:
@@ -66,6 +69,9 @@ function RenderImage(props: Props) {
                 source={{uri:'https://pixijs.com/assets/bunny.png'}}
                 style={styles.image}
               />
+              <View>
+                <Button title='Tillbaka till scannern' onPress={()=> setShowRenderImage(false)} />
+              </View>
             </View>
           );
       default:
