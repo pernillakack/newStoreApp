@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { View, Image, StyleSheet, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Image, StyleSheet } from "react-native";
 
 interface Props {
     scannedItems: {scanOne: string, scanTwo: string, scanThree: string};
     setShowRenderImage: (open: boolean) => void;
   }
   
-const ImageGenerator = (props: Props)=>{
+const ImageGenerator= (props: Props) =>{
     const { scanOne, scanTwo, scanThree } = props.scannedItems;
-    const [image_url, setImage_url] = useState('');
+    const {setShowRenderImage} = props;
+    const [image_url, setImage_url] = useState('/');
     const imageSource = { uri: image_url };
 
     const apiUrl = process.env.EXPO_PUBLIC_OPENAI_KEY;
@@ -30,7 +31,7 @@ const ImageGenerator = (props: Props)=>{
                     "Content-Type": "application/json",
                     Authorization:
                     `Bearer ${apiUrl}`,
-                    "User-Agent": "Edge" 
+                    "User-Agent": "Firefox" 
                 },
                 body: JSON.stringify({
                     prompt: imageRequest,
@@ -44,16 +45,17 @@ const ImageGenerator = (props: Props)=>{
         let data_array = data.data;
         setImage_url(data_array[0].url);
     }
-
+    useEffect(()=> {
+      imageGenerator();
+    },[]);
     return(
         <View style={styles.container}>
           <Image
             source={imageSource}
             style={styles.image}
           />
-         
         <View>
-        <Button title='Tryck här' onPress={imageGenerator}/>
+        
         </View>
         </View>
       );

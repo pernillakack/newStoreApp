@@ -1,9 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import { BarCodeScanner} from 'expo-barcode-scanner';
-import RenderImage from './RenderImage';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
-import { Link, useNavigation } from 'expo-router';
 
 interface Props{
   scannedItems: (scanOne: string, scanTwo: string, scanThree: string) => void;
@@ -15,9 +13,6 @@ const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);
 const [text, setText] = useState('Skanna första koden');
 const [newCodes, setNewCodes] = useState<string[]> ([]);
-
-//kortar ner de skannade koderna till 4 siffror var
-const code = newCodes.map((str)=> str.substring(9));
 
 let buttonTitle;
 let icon;
@@ -37,8 +32,6 @@ switch(newCodes.length){
         case 3:
           buttonTitle='Bra jobbat! Nu fixar vi bilden :)';
           icon='image';
-          
-           
           break;
           default:
             buttonTitle= 'Vad händer?! :)'
@@ -58,13 +51,7 @@ switch(newCodes.length){
       
     })()
   }
-
-  //request for camerapermission
-  useEffect(()=> {
-    //askForCameraPermission();
-  }, []);
-
-  //what happens when we scan the barcode
+ 
   const handleBarCodeScanned = ({type, data}: { type: string, data: string }) => {
     setText(data);
     newCodes.push(data);
@@ -75,9 +62,8 @@ switch(newCodes.length){
    
     setScanned(true);
     setNewCodes(newCodes);
-    console.log('Type: ' + type + '\nData: ' + data + '\nscanOne: ' + scanOne+ '\nscanTwo: '+scanTwo+ '\nscanThree: ' + scanThree + '\ndelad: '+code);
+    console.log('Type: ' + type + '\nData: ' + data + '\nscanOne: ' + scanOne+ '\nscanTwo: '+scanTwo+ '\nscanThree: ' + scanThree);
     
-  
   }
   //check permissions and return the screens
   if(hasPermission === null) {
@@ -87,7 +73,6 @@ switch(newCodes.length){
       <Button title='Yes' onPress={grantedCameraPermission} />
       <Button title='No' onPress={deniedCameraPermission} />
     </View>
-    
     )
   }
   if(hasPermission === false) {
@@ -107,14 +92,9 @@ return(
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned }
         style = {{height:400, width: 400}}/>
       </View>
-      
       <Text style={styles.maintext}>{text}</Text>
-      <Text>{'partofcode: ' + code}</Text>
-      <Text>{'newcodes: ' + newCodes}</Text>
-      
       {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
       <Text><FontAwesome5 name={icon} size={100} color="black" /></Text>
-     
     </View>  
 )
 }
@@ -124,7 +104,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-    
     },
     maintext: {
       fontSize: 16,
@@ -143,17 +122,16 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-  },
-  container2: {
+    },
+    container2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  image: {
+    },
+    image: {
     width: 200, // Anpassa storleken efter ditt behov
     height: 200,
-  }
+    }
   });
   
-
 export default Scanner;

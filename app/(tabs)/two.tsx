@@ -1,7 +1,7 @@
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Scanner from '../../components/scanner';
-import React, { Children, Dispatch, SetStateAction, useContext, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import RenderImage from '../../components/RenderImage';
 
@@ -41,9 +41,7 @@ export default function TabTwoScreen(props: Props) {
       )}
     </View>
   );
-  
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
