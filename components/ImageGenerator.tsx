@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Button } from "react-native";
+import {saveImage} from "./SaveImage";
 
 interface Props {
     scannedItems: {scanOne: string, scanTwo: string, scanThree: string};
@@ -10,7 +11,7 @@ const ImageGenerator= (props: Props) =>{
     const { scanOne, scanTwo, scanThree } = props.scannedItems;
     const {setShowRenderImage} = props;
     const [image_url, setImage_url] = useState('/');
-    const imageSource = { uri: image_url };
+    //const imageSource = { uri: image_url };
 
     const apiUrl = process.env.EXPO_PUBLIC_OPENAI_KEY;
     let one = 'banana';
@@ -44,18 +45,19 @@ const ImageGenerator= (props: Props) =>{
         console.log(data);
         let data_array = data.data;
         setImage_url(data_array[0].url);
-    }
+    } 
+    
     useEffect(()=> {
       imageGenerator();
     },[]);
     return(
         <View style={styles.container}>
           <Image
-            source={imageSource}
+            source={{uri: image_url}}
             style={styles.image}
           />
         <View>
-        
+        <Button title={'Spara bild'} onPress={() => saveImage(image_url)} />
         </View>
         </View>
       );
