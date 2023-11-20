@@ -29,6 +29,7 @@
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "~12.3.2",
     "express": "^4.18.2",
+    "firebase": "^10.6.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.3",
     "react": "18.2.0",
