@@ -1,28 +1,37 @@
 import { StyleSheet, Image } from 'react-native';
-import * as FileSystem from 'expo-file-system'
-
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View} from '../../components/Themed';
-import RenderImage from '../../components/RenderImage';
-
+import ScannerTwo from '../../components/ScannerTwo';
+import { TextInput } from 'react-native-gesture-handler';
+import { useState } from 'react';
 
 export default function TabOneScreen() {
+  const [scanned, setScanned] = useState(false);
+  const [scannedData, setScannedData] = useState('');
 
+  const handleBarCodeScanned = (data: string) => {
+    console.log('Scanned data: ', data);
+    setScanned(true);
+    setScannedData(data);
+  }
+    
+    return(
+      <View style={styles.container}>
+        <Text style={styles.title}>FunAtStore Admin</Text>
+        {scanned?(
+        <>
+        <Text>{scannedData}</Text>
+        <Text style={styles.title}>What product is this?</Text>
+        <TextInput />
+        </>
+        ) : (
+          <>
+          <ScannerTwo onBarCodeScanned={handleBarCodeScanned} />
+          </>
+        )}
+      </View> 
+    )
+  }
   
-  const localUri = 'file:///data/user/0/host.exp.exponent/files/image.png';
-  
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>FunAtStore</Text>
-      <Image source={{ uri: localUri}} 
-              style={styles.image}/>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-      
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
