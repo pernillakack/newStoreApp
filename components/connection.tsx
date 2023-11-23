@@ -10,7 +10,7 @@ const Connection = ({ScannerProps}:any) => {
     const [scannedItems, setScannedItems] = useState<any[]>([])
     const [scannedItemName, setScannedItemName] = useState('')
     const [scannedCode, setscannedCode] = useState('')
-    // const onBarCodeScanned = ScannerProps
+    const [showScannerTwo, setshowScannerTwo] = useState(true)
 
     useEffect(() => {}, [])
 
@@ -18,40 +18,72 @@ const Connection = ({ScannerProps}:any) => {
     const addToDatabase = async () => {
         console.log('ADDED');
 
-        const barcode = '000'
-        const doc = addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + barcode})
-        console.log('Name:' + scannedItemName ,'\nBarcode:' + barcode);   
+        const doc = addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + scannedCode})
+        console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCode);   
     }
 
     function sendToScanner (){
         
     }
+
+    const handleBarCodeScanned = (data: string) => {
+        console.log('Scanned data: ' + data);
+        setscannedCode(data)
+        setshowScannerTwo(false)
+      }
+
+    
     
 
   return (
-    <View style={styles.main}>    
-    
+    <View>    
     <View style={styles.scanContainer}>
-      <Pressable style={styles.scanButton} onPress={() => sendToScanner()}>
+      {showScannerTwo ? (
+      <ScannerTwo  onBarCodeScanned={handleBarCodeScanned}/>
+
+      ) : (
+        <View style ={styles.container}>
+
+        <View style={styles.scanBox}>
+            <Text style={styles.scanText}>Scanned code: {scannedCode}</Text>
+        </View>
+
+        <TextInput style={styles.input} placeholder='Add item name' onChangeText={(text: any) => setScannedItemName(text)} value={scannedItemName}/>
+        <Pressable style={scannedItemName? (styles.button): styles.button2} onPress={addToDatabase}>
+            <Text style={styles.inputText}>Add to firebase</Text>
+        </Pressable>
+
+        <Pressable style={styles.back} onPress={()=>setshowScannerTwo(true)}>
+            <Text style={styles.inputText}>back to scanner</Text>
+        </Pressable>
+
+      </View>
+      )}
+
+      {/* <Pressable style={styles.scanButton} onPress={() => sendToScanner()}>
           <Text style={styles.inputText}>Scanner</Text>
-      </Pressable>
+      </Pressable> */}
     </View>
-    
-    
-    <View style ={styles.container}>
-      <TextInput style={styles.input} placeholder='Add item name' onChangeText={(text: any) => setScannedItemName(text)} value={scannedItemName}/>
-      <Pressable style={scannedItemName? (styles.button): styles.button2} onPress={addToDatabase}>
-          <Text style={styles.inputText}>Add to firebase</Text>
-      </Pressable>
-    </View>
-    
+
   </View>
   )
 }
 
 const styles = StyleSheet.create({
-    main: {
+    back:{
         backgroundColor: 'yellow',
+        borderRadius: 25,
+    },
+    scanText:{
+        fontSize:18,
+    },
+    scanBox: {
+        backgroundColor:'green',
+        height: 50,
+        width: 260,
+        margin: 20,
+        borderRadius: 25,
+        alignItems: 'center'
 
     },
     button2:{
@@ -109,7 +141,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     inputText:{
-        color: 'white',
+        color: 'black',
         textAlign:'center',
         margin: 20,
         fontWeight:'bold',

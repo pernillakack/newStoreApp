@@ -5,6 +5,7 @@ import { Pressable, useColorScheme } from 'react-native';
 import Colors from '../../constants/Colors';
 import { codeContext } from '../../Context/codeContext';
 import { Children, useState } from 'react';
+import React from 'react';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
