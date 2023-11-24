@@ -16,18 +16,6 @@ export default function TabOneScreen() {
     
     return(
       <View style={styles.container}>
-        <Text style={styles.title}>FunAtStore Admin</Text>
-        {scanned?(
-        <>
-        <Text>{scannedData}</Text>
-        <Text style={styles.title}>What product is this?</Text>
-        <TextInput />
-        </>
-        ) : (
-          <>
-          <ScannerTwo onBarCodeScanned={handleBarCodeScanned} />
-          </>
-        )}
       </View> 
     )
   }

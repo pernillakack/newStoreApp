@@ -32,6 +32,9 @@ const [text, setText] = useState('Skanna första koden');
     setScanned(true);
     onBarCodeScanned(data); //meddelar föräldern att något är scannat
   }
+
+  console.log("onBarCodeScanned: "+onBarCodeScanned);
+  
   //check permissions and return the screens
   if(hasPermission === null) {
     return(
@@ -51,6 +54,7 @@ const [text, setText] = useState('Skanna första koden');
     )
   }
   return(
+    
     <View style={styles.container}>
       <View style={styles.barcodebox}>
         <BarCodeScanner
