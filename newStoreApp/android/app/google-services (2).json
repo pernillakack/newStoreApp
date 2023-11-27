@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156467690288",
+    "project_id": "funstore-67017",
+    "storage_bucket": "funstore-67017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156467690288:android:813add0cde2843dcada6f5",
+        "android_client_info": {
+          "package_name": "com.newstoreapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKm0_fOH53X6wEuKEK-Ee6npeSPv0sRNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
