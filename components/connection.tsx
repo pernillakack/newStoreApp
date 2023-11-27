@@ -38,10 +38,13 @@ const Connection = ({ScannerProps}:any) => {
 
     const fetchByBarcode = async () => {
         const scansRef = collection(FIRESTORE_DB, 'scans')
-        const barcodeValue = 7311250004926; // Värdet som ska jämföras mot DB
-        // Use the 'where' method to filter documents based on the 'barcode' field
-        const q = query(scansRef, where('barcode', '==', barcodeValue));        
+        const barcodeValue = '7311250004926'; // Replace with the actual barcode value
+// Use the 'where' method to filter documents based on the 'barcode' field
+const q = query(scansRef, where('barcode', '==', barcodeValue));        
+const snapshot = await getDocs(q)
+        console.log(snapshot);
         
+<<<<<<< HEAD
         getDocs(q)
             .then((snapshot) => {
                 let scans: { id: string}[] = []
@@ -78,12 +81,9 @@ const Connection = ({ScannerProps}:any) => {
         
 
 
+=======
+>>>>>>> 1b4e2cb2e512c2858ebf21bb043947754f95a826
     }
-
-    //kronan - 7311250004926 
-
-    
-
 
 
 
@@ -141,6 +141,8 @@ const styles = StyleSheet.create({
     back:{
         backgroundColor: 'yellow',
         borderRadius: 25,
+        width:180,
+        margin: 40
     },
     scanText:{
         fontSize:18,
@@ -179,7 +181,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     container:{
-        marginTop:150,
+        marginTop:80,
         margin: 30,
         alignItems: 'center',
         justifyContent:'center',
@@ -187,7 +189,7 @@ const styles = StyleSheet.create({
 
     
     button:{
-        margin:20,
+        margin:40,
         height:60,
         width: 180,
         borderRadius: 25,
@@ -205,6 +207,7 @@ const styles = StyleSheet.create({
         textAlign:'center', 
         fontWeight: 'bold',   
         borderRadius: 25,
+        margin:10
     },
     inputText:{
         color: 'black',

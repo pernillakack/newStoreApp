@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import Scanner from '../../components/scanner';
+import Scanner from '../../components/ScannerTwo';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import RenderImage from '../../components/RenderImage';
