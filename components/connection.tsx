@@ -18,13 +18,14 @@ const Connection = ({ScannerProps}:any) => {
         console.log('ADDED');
 
         const doc = addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + scannedCode})
-        console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCode);   
+        console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCodeNumber);   
     }
 
+    let scannedCodeNumber:number = +scannedCode
 
     const fetchById = async () => {
 
-        const docRef = doc(FIRESTORE_DB, 'scans','0c4uxkIb9mu9IgcPs9RT')
+        const docRef = doc(FIRESTORE_DB, 'scans','4BZ6cqe0RrDtm6K5tvoQ')
         const docSnap = await getDoc(docRef)
 
 
@@ -38,13 +39,12 @@ const Connection = ({ScannerProps}:any) => {
 
     const fetchByBarcode = async () => {
         const scansRef = collection(FIRESTORE_DB, 'scans')
-        const barcodeValue = '7311250004926'; // Replace with the actual barcode value
-// Use the 'where' method to filter documents based on the 'barcode' field
-const q = query(scansRef, where('barcode', '==', barcodeValue));        
-const snapshot = await getDocs(q)
-        console.log(snapshot);
         
-<<<<<<< HEAD
+        // Use where' method to filter documents based on barcode
+        const q = query(scansRef, where('barcode', '==',scannedCodeNumber));        
+        const snapshot = await getDocs(q)
+        
+        
         getDocs(q)
             .then((snapshot) => {
                 let scans: { id: string}[] = []
@@ -57,32 +57,13 @@ const snapshot = await getDocs(q)
                 console.log('Scans: ',scans);
                 console.log();
                 
-                
-                const myObj = {'id': 1, 'barcode': 'asdasdad'}
-                console.log(myObj.barcode);
-                console.log('scans:' ,scans);
-                
                 const key = [scans]
                 for (const key of scans){
                     console.log('key:',key);
                     console.log(key);
                     console.log('keyn.name: ', key.name); 
                 }
-                
-                
-                
-                // const docRef = doc(FIRESTORE_DB, 'barcode','7311250004926')
-                // onSnapshot(docRef,(doc) => {
-                //     console.log('doc.data: ',doc.data(),doc.id);
-                    
-                // })
             })
-        
-        
-
-
-=======
->>>>>>> 1b4e2cb2e512c2858ebf21bb043947754f95a826
     }
 
 
