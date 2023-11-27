@@ -59,11 +59,12 @@ const Connection = ({ScannerProps}:any) => {
                 
                 const key = [scans]
                 for (const key of scans){
-                    console.log('key:',key);
-                    console.log(key);
-                    console.log('keyn.name: ', key.name); 
+                    // console.log('key:',key);
+                    // console.log(key);
+                    console.log('key.name: ', key.name); 
                 }
             })
+            
     }
 
 
@@ -90,14 +91,14 @@ const Connection = ({ScannerProps}:any) => {
         </View>
 
         <TextInput style={styles.input} placeholder='Add item name' onChangeText={(text: any) => setScannedItemName(text)} value={scannedItemName}/>
-        <Pressable style={scannedItemName? (styles.button): styles.button2} onPress={addToDatabase}>
+        <Pressable style={scannedItemName? (styles.button3): styles.button2} onPress={addToDatabase}>
             <Text style={styles.inputText}>Add to firebase</Text>
         </Pressable>       
         <Pressable style={styles.button}onPress={fetchById}>
             <Text style={styles.inputText}>Fetch by ID</Text>
         </Pressable>
         <Pressable style={styles.button}onPress={fetchByBarcode}>
-            <Text style={styles.inputText}>Fetch DB by barcode</Text>
+            <Text style={styles.inputText}>Fetch by barcode</Text>
         </Pressable>
 
         <Pressable style={styles.back} onPress={()=>setshowScannerTwo(true)}>
@@ -123,13 +124,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'yellow',
         borderRadius: 25,
         width:180,
-        margin: 40
+        margin: 20
     },
     scanText:{
         fontSize:18,
     },
     scanBox: {
-        backgroundColor:'green',
+        backgroundColor:'purple',
         height: 50,
         width: 260,
         margin: 20,
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
 
     },
     button2:{
+        margin:20,
         height:60,
         width: 180,
         borderRadius: 25,
@@ -162,13 +164,22 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     container:{
-        marginTop:80,
+        marginTop:40,
         margin: 30,
         alignItems: 'center',
         justifyContent:'center',
     },
-
-    
+    button3:{
+        margin:20,
+        height:60,
+        width: 180,
+        borderRadius: 25,
+        borderColor: 'black', 
+        alignContent: 'center',
+        backgroundColor: 'green',
+        elevation: 4, 
+    },
+        
     button:{
         margin:40,
         height:60,
