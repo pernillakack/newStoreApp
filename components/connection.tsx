@@ -1,7 +1,7 @@
 import { Button, StyleSheet, TextInput, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { FIRESTORE_DB } from '../firebaseConfig'
-import { addDoc, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+import { FIREBASE_APP, FIRESTORE_DB } from '../firebaseConfig'
+import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore'
 import { Text, View} from './Themed'
 import ScannerTwo from './ScannerTwo';
 
@@ -21,10 +21,13 @@ const Connection = ({ScannerProps}:any) => {
         console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCode);   
     }
 
+
     const fetchById = async () => {
 
         const docRef = doc(FIRESTORE_DB, 'scans','0c4uxkIb9mu9IgcPs9RT')
         const docSnap = await getDoc(docRef)
+
+
     
         if(docSnap.exists()){
             console.log('Document data:\n', docSnap.data());
@@ -35,13 +38,50 @@ const Connection = ({ScannerProps}:any) => {
 
     const fetchByBarcode = async () => {
         const scansRef = collection(FIRESTORE_DB, 'scans')
-        const barcodeValue = '7311250004926'; // Replace with the actual barcode value
-// Use the 'where' method to filter documents based on the 'barcode' field
-const q = query(scansRef, where('barcode', '==', barcodeValue));        
-const snapshot = await getDocs(q)
-        console.log(snapshot);
+        const barcodeValue = 7311250004926; // Värdet som ska jämföras mot DB
+        // Use the 'where' method to filter documents based on the 'barcode' field
+        const q = query(scansRef, where('barcode', '==', barcodeValue));        
         
+        getDocs(q)
+            .then((snapshot) => {
+                let scans: { id: string}[] = []
+                snapshot.docs.forEach((doc) =>{
+                    scans.push({
+                        ...doc.data(), id: doc.id,
+                        
+                    })
+                })
+                console.log('Scans: ',scans);
+                
+                const myObj = {'id': 1, 'barcode': 'asdasdad'}
+                console.log(myObj.barcode);
+                console.log('scans:' ,scans);
+                
+                const key = [scans]
+                for (const key of scans){
+                    console.log('key:',key);
+                    console.log(key);
+                    console.log('keyn.name: ', key.name); 
+                }
+                
+                
+                
+                // const docRef = doc(FIRESTORE_DB, 'barcode','7311250004926')
+                // onSnapshot(docRef,(doc) => {
+                //     console.log('doc.data: ',doc.data(),doc.id);
+                    
+                // })
+            })
+        
+        
+
+
     }
+
+    //kronan - 7311250004926 
+
+    
+
 
 
 
@@ -71,7 +111,7 @@ const snapshot = await getDocs(q)
             <Text style={styles.inputText}>Add to firebase</Text>
         </Pressable>       
         <Pressable style={styles.button}onPress={fetchById}>
-            <Text style={styles.inputText}>Fetch DB</Text>
+            <Text style={styles.inputText}>Fetch by ID</Text>
         </Pressable>
         <Pressable style={styles.button}onPress={fetchByBarcode}>
             <Text style={styles.inputText}>Fetch DB by barcode</Text>
@@ -113,7 +153,6 @@ const styles = StyleSheet.create({
 
     },
     button2:{
-        margin:40,
         height:60,
         width: 180,
         borderRadius: 25,
@@ -123,7 +162,6 @@ const styles = StyleSheet.create({
         elevation: 4, 
     },
     scanButton: {
-        margin:40,
         height:60,
         width: 180,
         borderRadius: 25,
@@ -147,7 +185,7 @@ const styles = StyleSheet.create({
 
     
     button:{
-        margin:40,
+        margin:20,
         height:60,
         width: 180,
         borderRadius: 25,
