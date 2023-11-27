@@ -52,6 +52,8 @@ const Connection = ({ScannerProps}:any) => {
                     })
                 })
                 console.log('Scans: ',scans);
+                console.log();
+                
                 
                 const myObj = {'id': 1, 'barcode': 'asdasdad'}
                 console.log(myObj.barcode);
