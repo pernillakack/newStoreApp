@@ -10,7 +10,7 @@ const Scanner: React.FC<ScannerProps> = ({onBarCodeScanned}) => {
  
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);
-const [text, setText] = useState('Skanna första koden');
+const [text, setText] = useState('Scan barcode: ');
 
   useEffect(() => {
     (async () => {

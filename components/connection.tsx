@@ -1,10 +1,9 @@
 import { Button, StyleSheet, TextInput, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { FIRESTORE_DB } from '../firebaseConfig'
-import { addDoc, collection } from 'firebase/firestore'
+import { FIREBASE_APP, FIRESTORE_DB } from '../firebaseConfig'
+import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore'
 import { Text, View} from './Themed'
 import ScannerTwo from './ScannerTwo';
-
 
 const Connection = ({ScannerProps}:any) => {
     const [scannedItems, setScannedItems] = useState<any[]>([])
@@ -19,12 +18,56 @@ const Connection = ({ScannerProps}:any) => {
         console.log('ADDED');
 
         const doc = addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + scannedCode})
-        console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCode);   
+        console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCodeNumber);   
     }
 
-    function sendToScanner (){
+    let scannedCodeNumber:number = +scannedCode
+
+    const fetchById = async () => {
+
+        const docRef = doc(FIRESTORE_DB, 'scans','4BZ6cqe0RrDtm6K5tvoQ')
+        const docSnap = await getDoc(docRef)
+
+
+    
+        if(docSnap.exists()){
+            console.log('Document data:\n', docSnap.data());
+        } else {
+            console.log('no such document');
+            
+        }}
+
+    const fetchByBarcode = async () => {
+        const scansRef = collection(FIRESTORE_DB, 'scans')
         
+        // Use where' method to filter documents based on barcode
+        const q = query(scansRef, where('barcode', '==',scannedCodeNumber));        
+        const snapshot = await getDocs(q)
+        
+        
+        getDocs(q)
+            .then((snapshot) => {
+                let scans: { id: string}[] = []
+                snapshot.docs.forEach((doc) =>{
+                    scans.push({
+                        ...doc.data(), id: doc.id,
+                        
+                    })
+                })
+                console.log('Scans: ',scans);
+                console.log();
+                
+                const key = [scans]
+                for (const key of scans){
+                    // console.log('key:',key);
+                    // console.log(key);
+                    console.log('key.name: ', key.name); 
+                }
+            })
+            
     }
+
+
 
     const handleBarCodeScanned = (data: string) => {
         console.log('Scanned data: ' + data);
@@ -32,11 +75,10 @@ const Connection = ({ScannerProps}:any) => {
         setshowScannerTwo(false)
       }
 
-    
-    
-
   return (
-    <View>    
+    
+    <View>
+    
     <View style={styles.scanContainer}>
       {showScannerTwo ? (
       <ScannerTwo  onBarCodeScanned={handleBarCodeScanned}/>
@@ -49,13 +91,21 @@ const Connection = ({ScannerProps}:any) => {
         </View>
 
         <TextInput style={styles.input} placeholder='Add item name' onChangeText={(text: any) => setScannedItemName(text)} value={scannedItemName}/>
-        <Pressable style={scannedItemName? (styles.button): styles.button2} onPress={addToDatabase}>
+        <Pressable style={scannedItemName? (styles.button3): styles.button2} onPress={addToDatabase}>
             <Text style={styles.inputText}>Add to firebase</Text>
+        </Pressable>       
+        <Pressable style={styles.button}onPress={fetchById}>
+            <Text style={styles.inputText}>Fetch by ID</Text>
+        </Pressable>
+        <Pressable style={styles.button}onPress={fetchByBarcode}>
+            <Text style={styles.inputText}>Fetch by barcode</Text>
         </Pressable>
 
         <Pressable style={styles.back} onPress={()=>setshowScannerTwo(true)}>
             <Text style={styles.inputText}>back to scanner</Text>
         </Pressable>
+
+  
 
       </View>
       )}
@@ -73,12 +123,14 @@ const styles = StyleSheet.create({
     back:{
         backgroundColor: 'yellow',
         borderRadius: 25,
+        width:180,
+        margin: 20
     },
     scanText:{
         fontSize:18,
     },
     scanBox: {
-        backgroundColor:'green',
+        backgroundColor:'purple',
         height: 50,
         width: 260,
         margin: 20,
@@ -87,7 +139,7 @@ const styles = StyleSheet.create({
 
     },
     button2:{
-        margin:40,
+        margin:20,
         height:60,
         width: 180,
         borderRadius: 25,
@@ -97,7 +149,6 @@ const styles = StyleSheet.create({
         elevation: 4, 
     },
     scanButton: {
-        margin:40,
         height:60,
         width: 180,
         borderRadius: 25,
@@ -113,13 +164,22 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     container:{
-        marginTop:150,
+        marginTop:40,
         margin: 30,
         alignItems: 'center',
         justifyContent:'center',
     },
-
-    
+    button3:{
+        margin:20,
+        height:60,
+        width: 180,
+        borderRadius: 25,
+        borderColor: 'black', 
+        alignContent: 'center',
+        backgroundColor: 'green',
+        elevation: 4, 
+    },
+        
     button:{
         margin:40,
         height:60,
@@ -139,6 +199,7 @@ const styles = StyleSheet.create({
         textAlign:'center', 
         fontWeight: 'bold',   
         borderRadius: 25,
+        margin:10
     },
     inputText:{
         color: 'black',
