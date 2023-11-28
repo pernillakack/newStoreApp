@@ -18,14 +18,13 @@ const Connection = ({ScannerProps}:any) => {
         console.log('ADDED');
 
         const doc = addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + scannedCode})
-        console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCodeNumber);   
+        console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCode);   
     }
 
-    let scannedCodeNumber:number = +scannedCode
 
     const fetchById = async () => {
 
-        const docRef = doc(FIRESTORE_DB, 'scans','4BZ6cqe0RrDtm6K5tvoQ')
+        const docRef = doc(FIRESTORE_DB, 'scans','0c4uxkIb9mu9IgcPs9RT')
         const docSnap = await getDoc(docRef)
 
 
@@ -39,11 +38,11 @@ const Connection = ({ScannerProps}:any) => {
 
     const fetchByBarcode = async () => {
         const scansRef = collection(FIRESTORE_DB, 'scans')
-        
-        // Use where' method to filter documents based on barcode
-        const q = query(scansRef, where('barcode', '==',scannedCodeNumber));        
+        const barcodeValue = '7311250004926'; // Replace with the actual barcode value
+        // Use the 'where' method to filter documents based on the 'barcode' field
+        const q = query(scansRef, where('barcode', '==', barcodeValue));        
         const snapshot = await getDocs(q)
-        
+        console.log(snapshot);
         
         getDocs(q)
             .then((snapshot) => {
@@ -57,14 +56,30 @@ const Connection = ({ScannerProps}:any) => {
                 console.log('Scans: ',scans);
                 console.log();
                 
+                
+                const myObj = {'id': 1, 'barcode': 'asdasdad'}
+                console.log(myObj.barcode);
+                console.log('scans:' ,scans);
+                
                 const key = [scans]
                 for (const key of scans){
-                    // console.log('key:',key);
-                    // console.log(key);
-                    console.log('key.name: ', key.name); 
+                    console.log('key:',key);
+                    console.log(key);
+                    console.log('keyn.name: ', key.name); 
                 }
+                
+                
+                
+                // const docRef = doc(FIRESTORE_DB, 'barcode','7311250004926')
+                // onSnapshot(docRef,(doc) => {
+                //     console.log('doc.data: ',doc.data(),doc.id);
+                    
+                // })
             })
-            
+        
+        
+
+
     }
 
 
@@ -91,14 +106,14 @@ const Connection = ({ScannerProps}:any) => {
         </View>
 
         <TextInput style={styles.input} placeholder='Add item name' onChangeText={(text: any) => setScannedItemName(text)} value={scannedItemName}/>
-        <Pressable style={scannedItemName? (styles.button3): styles.button2} onPress={addToDatabase}>
+        <Pressable style={scannedItemName? (styles.button): styles.button2} onPress={addToDatabase}>
             <Text style={styles.inputText}>Add to firebase</Text>
         </Pressable>       
         <Pressable style={styles.button}onPress={fetchById}>
             <Text style={styles.inputText}>Fetch by ID</Text>
         </Pressable>
         <Pressable style={styles.button}onPress={fetchByBarcode}>
-            <Text style={styles.inputText}>Fetch by barcode</Text>
+            <Text style={styles.inputText}>Fetch DB by barcode</Text>
         </Pressable>
 
         <Pressable style={styles.back} onPress={()=>setshowScannerTwo(true)}>
@@ -124,13 +139,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'yellow',
         borderRadius: 25,
         width:180,
-        margin: 20
+        margin: 40
     },
     scanText:{
         fontSize:18,
     },
     scanBox: {
-        backgroundColor:'purple',
+        backgroundColor:'green',
         height: 50,
         width: 260,
         margin: 20,
@@ -139,7 +154,6 @@ const styles = StyleSheet.create({
 
     },
     button2:{
-        margin:20,
         height:60,
         width: 180,
         borderRadius: 25,
@@ -164,22 +178,13 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     container:{
-        marginTop:40,
+        marginTop:80,
         margin: 30,
         alignItems: 'center',
         justifyContent:'center',
     },
-    button3:{
-        margin:20,
-        height:60,
-        width: 180,
-        borderRadius: 25,
-        borderColor: 'black', 
-        alignContent: 'center',
-        backgroundColor: 'green',
-        elevation: 4, 
-    },
-        
+
+    
     button:{
         margin:40,
         height:60,
