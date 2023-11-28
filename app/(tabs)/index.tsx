@@ -1,19 +1,9 @@
-import { StyleSheet, Image } from 'react-native';
-import { Text, View} from '../../components/Themed';
-import ScannerTwo from '../../components/ScannerTwo';
-import { TextInput } from 'react-native-gesture-handler';
-import { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { View } from '../../components/Themed';
+import React from 'react';
 
 export default function TabOneScreen() {
-  const [scanned, setScanned] = useState(false);
-  const [scannedData, setScannedData] = useState('');
 
-  const handleBarCodeScanned = (data: string) => {
-    console.log('Scanned data: ', data);
-    setScanned(true);
-    setScannedData(data);
-  }
-    
     return(
       <View style={styles.container}>
       </View> 

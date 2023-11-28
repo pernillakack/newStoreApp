@@ -1,5 +1,6 @@
 import { View, StyleSheet, Button } from "react-native";
 import ImageGenerator from "./ImageGenerator";
+import React from "react";
 
 
 interface Props {

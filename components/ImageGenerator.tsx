@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Button } from "react-native";
 import {saveImage} from "./SaveImage";
+import LoadingBar from "./LoadingBar";
 
 interface Props {
     scannedItems: {scanOne: string, scanTwo: string, scanThree: string};
     setShowRenderImage: (open: boolean) => void;
   }
-  
+   
 const ImageGenerator= (props: Props) =>{
     const { scanOne, scanTwo, scanThree } = props.scannedItems;
     const {setShowRenderImage} = props;
@@ -56,6 +57,7 @@ const ImageGenerator= (props: Props) =>{
             source={{uri: image_url}}
             style={styles.image}
           />
+          <LoadingBar /> 
         <View>
         <Button title={'Spara bild'} onPress={() => saveImage(image_url)} />
         </View>
@@ -72,9 +74,6 @@ const styles = StyleSheet.create({
       image: {
         width: 150,
         height: 150,
-      },
-      button: {
-
-      }
+      }, 
 })
 export default ImageGenerator;
