@@ -1,15 +1,17 @@
-import { Button, StyleSheet, TextInput, Pressable } from 'react-native'
+import { StyleSheet, TextInput, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { FIREBASE_APP, FIRESTORE_DB } from '../firebaseConfig'
-import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore'
+import { FIRESTORE_DB } from '../firebaseConfig'
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
 import { Text, View} from './Themed'
 import ScannerTwo from './ScannerTwo';
+import { fetchByBarcode } from "./FetchByBarcode";
 
 const Connection = ({ScannerProps}:any) => {
     const [scannedItems, setScannedItems] = useState<any[]>([])
     const [scannedItemName, setScannedItemName] = useState('')
     const [scannedCode, setscannedCode] = useState('')
     const [showScannerTwo, setshowScannerTwo] = useState(true)
+    const [result, setResult] = useState('');
 
     useEffect(() => {}, [])
 
@@ -17,7 +19,9 @@ const Connection = ({ScannerProps}:any) => {
     const addToDatabase = async () => {
         console.log('ADDED');
 
-        const doc = addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + scannedCode})
+        const doc = await addDoc(collection(FIRESTORE_DB, 'scans'), {
+            name: scannedItemName, 
+            barcode: + scannedCode})
         console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCodeNumber);   
     }
 
@@ -27,8 +31,6 @@ const Connection = ({ScannerProps}:any) => {
 
         const docRef = doc(FIRESTORE_DB, 'scans','4BZ6cqe0RrDtm6K5tvoQ')
         const docSnap = await getDoc(docRef)
-
-
     
         if(docSnap.exists()){
             console.log('Document data:\n', docSnap.data());
@@ -37,43 +39,23 @@ const Connection = ({ScannerProps}:any) => {
             
         }}
 
-    const fetchByBarcode = async () => {
-        const scansRef = collection(FIRESTORE_DB, 'scans')
-        
-        // Use where' method to filter documents based on barcode
-        const q = query(scansRef, where('barcode', '==',scannedCodeNumber));        
-        const snapshot = await getDocs(q)
-        
-        
-        getDocs(q)
-            .then((snapshot) => {
-                let scans: { id: string}[] = []
-                snapshot.docs.forEach((doc) =>{
-                    scans.push({
-                        ...doc.data(), id: doc.id,
-                        
-                    })
-                })
-                console.log('Scans: ',scans);
-                console.log();
-                
-                const key = [scans]
-                for (const key of scans){
-                    // console.log('key:',key);
-                    // console.log(key);
-                    console.log('key.name: ', key.name); 
-                }
-            })
-            
-    }
+    const handleBarCodeScanned = async (data: string) => {
+        const items = await fetchByBarcode(data);
 
-
-
-    const handleBarCodeScanned = (data: string) => {
-        console.log('Scanned data: ' + data);
+        if(items.length > 0){
+            const itemName = items[0].name;
+        
+        console.log('Fetched scan: ', items );
+        console.log('Scanned data: ' , items , 'Name: ', itemName);
+        setscannedCode(data)
+        setshowScannerTwo(false)
+        setResult(itemName || '')
+      } else {
+        setResult('Saknas')
         setscannedCode(data)
         setshowScannerTwo(false)
       }
+    }
 
   return (
     
@@ -81,13 +63,14 @@ const Connection = ({ScannerProps}:any) => {
     
     <View style={styles.scanContainer}>
       {showScannerTwo ? (
-      <ScannerTwo  onBarCodeScanned={handleBarCodeScanned}/>
+      <ScannerTwo onBarCodeScanned={handleBarCodeScanned}/>
 
       ) : (
         <View style ={styles.container}>
 
         <View style={styles.scanBox}>
             <Text style={styles.scanText}>Scanned code: {scannedCode}</Text>
+            <Text style={styles.scanText}>Existing name: {result}</Text>
         </View>
 
         <TextInput style={styles.input} placeholder='Add item name' onChangeText={(text: any) => setScannedItemName(text)} value={scannedItemName}/>
@@ -97,10 +80,6 @@ const Connection = ({ScannerProps}:any) => {
         <Pressable style={styles.button}onPress={fetchById}>
             <Text style={styles.inputText}>Fetch by ID</Text>
         </Pressable>
-        <Pressable style={styles.button}onPress={fetchByBarcode}>
-            <Text style={styles.inputText}>Fetch by barcode</Text>
-        </Pressable>
-
         <Pressable style={styles.back} onPress={()=>setshowScannerTwo(true)}>
             <Text style={styles.inputText}>back to scanner</Text>
         </Pressable>

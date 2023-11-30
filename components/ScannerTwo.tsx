@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { BarCodeScanner} from 'expo-barcode-scanner';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 interface ScannerProps {
     onBarCodeScanned: (data: string) => void;
 }
 
-const Scanner: React.FC<ScannerProps> = ({onBarCodeScanned}) => {
- 
+const ScannerTwo: React.FC<ScannerProps> = ({onBarCodeScanned}) => {
+
 const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 const [scanned, setScanned] = useState(false);
 const [text, setText] = useState('Scan barcode: ');
@@ -33,7 +33,6 @@ const [text, setText] = useState('Scan barcode: ');
     onBarCodeScanned(data); //meddelar föräldern att något är scannat
   }
 
-  console.log("onBarCodeScanned: "+onBarCodeScanned);
   
   //check permissions and return the screens
   if(hasPermission === null) {
@@ -99,4 +98,4 @@ const styles = StyleSheet.create({
     }
   });
   
-export default Scanner;
+export default ScannerTwo;
