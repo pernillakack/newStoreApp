@@ -18,7 +18,7 @@ export default function TabOneScreen({ScannerProps}:any) {
     
   }
     
-
+  // Start scanning button? skickas till scanner eller how to slides?
   function nextPress(scannedData: any){{
     return(
       console.log("Pressed")

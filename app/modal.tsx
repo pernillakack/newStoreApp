@@ -6,6 +6,7 @@ import { Text, View } from '../components/Themed';
 import React from 'react';
 import ScannerTwo from '../components/ScannerTwo';
 import Connection from '../components/connection';
+import HowToModal from './howToModal';
 
 export default function ModalScreen() {
 
@@ -14,12 +15,14 @@ export default function ModalScreen() {
   return (
     <View style={styles.container}>
       <Connection/>
+      {/* <HowToModal/> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor:'black',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
