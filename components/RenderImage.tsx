@@ -17,7 +17,7 @@ function RenderImage(props: Props) {
     //const imageSource = { uri: image_url };
 
     const [barcodeData, setBarcodeData] = useState<{ name?: string}[]>([]);
-    const [imageRequest, setImageRequest] = useState('');
+    //const [imageRequest, setImageRequest] = useState('');
     const [promptString, setPromptString] = useState('');
 
     const apiUrl = process.env.EXPO_PUBLIC_OPENAI_KEY;
@@ -25,7 +25,7 @@ function RenderImage(props: Props) {
 
     
               useEffect(() => {
-                
+  
                 const fetchData = async () => {
                 const results = [];
                 if (scanOne) {
@@ -44,72 +44,73 @@ function RenderImage(props: Props) {
                   results.push(result);
                 }
                 setBarcodeData(results.flat())
+                
               }
-                fetchData()
+                fetchData();
               }, [scanOne, scanTwo, scanThree]);
               const [name1, name2, name3] = barcodeData.map((data) => data.name || '');
+    console.log('Fetched names: ',name1, name2, name3);
     
     //let imageRequest = `Generate a happy toon character mixed of ${name1} and ${name2} with a hat of ${name3}.`;
     //console.log(imageRequest);
     
         
-      let select = true;  
-      while(select){
+      useEffect(() => { 
         const random = 
         Math.floor(Math.random() * 10) +1
-        select = false;
+        
         console.log( 'randomNumber', random)
+
+        const safeName1 = name1 || 'sausage';
+        const safeName2 = name2 || 'tomato';
+        const safeName3 = name3 || 'apple';
         switch(random){
             case 1:
-                setPromptString(`Generate two toon characters made out of ${name1} and ${name2} dancing with a ${name3}`);
+                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                 break;
               case 2:
-                setPromptString(`Generate two toon characters made out of ${name1} and ${name2} dancing with a ${name3}`);
+                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                   break;
                 case 3:
-                  setPromptString(`Generate two toon characters made out of ${name1} and ${name2} playing with a ${name3}`);
+                  setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} playing with a ${safeName3}`);
                     break;
                   case 4:
-                    setPromptString(`Generate two toon characters made out of ${name1} and ${name2} dancing with a ${name3}`);
+                    setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                       break;
                     case 5:
-                      setPromptString(`Generate two toon characters made out of ${name1} and ${name2} dancing with a ${name3}`);
+                      setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                         break;
                       case 6:
-                        setPromptString(`Generate toon characters made out of ${name1}, ${name2} and ${name3} playing an having fun in water`);
+                        setPromptString(`Generate toon characters made out of ${safeName1}, ${safeName2} and ${safeName3} playing an having fun in water`);
                           break;
                         case 7:
-                          setPromptString(`Generate toon characters painting other toon characters out of ${name1}, ${name2} and ${name3}`);
+                          setPromptString(`Generate toon characters painting other toon characters out of ${safeName1}, ${safeName2} and ${safeName3}`);
                             break; 
                           case 8:
-                            setPromptString(`Generate a toon character made combined out of ${name1}, ${name2} and ${name3} smiling and sticking out its tounge`);
+                            setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3} smiling and sticking out its tounge`);
                               break;                           
                             case 9:
-                              setPromptString(`Generate toon characters looking like ${name1}, ${name2} baking a cake looking like ${name3}`);
+                              setPromptString(`Generate toon characters looking like ${safeName1}, ${safeName2} baking a cake looking like ${safeName3}`);
                                 break;
                               case 10:
-                                setPromptString(`Generate a toon character mixed of ${name1} and ${name2} with a hat of ${name3}`);
+                                setPromptString(`Generate a toon character mixed of ${safeName1} and ${safeName2} with a hat of ${safeName3}`);
                                   break;
                                 default:
-                                  setPromptString(`Generate a toon character made combined out of ${name1}, ${name2} and ${name3}smiling and sticking out its tounge`); 
+                                  setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its tounge`); 
                                   break;
         }
-      }
-
-      useEffect(()=> {
-        
-        imageGenerator();
-
-      },[]);
-
-      
-  
+      console.log(promptString);
+      imageGenerator();
+    }, [barcodeData])
+    
     const imageGenerator = async () =>{
         if(!apiUrl){
             console.error('APIurl is missing')
             return;
         }
         try{
+          console.log('Prompstring i imageGenerator: ', promptString);
+          
         const response = await fetch(
             "https://api.openai.com/v1/images/generations",
             {
@@ -140,6 +141,7 @@ function RenderImage(props: Props) {
         console.error('Error during image generation: ', error)
     }
   }
+
   return(
     <View style={styles.container}>
     <Image
