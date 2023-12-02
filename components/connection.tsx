@@ -4,12 +4,14 @@ import { FIREBASE_APP, FIRESTORE_DB } from '../firebaseConfig'
 import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore'
 import { Text, View} from './Themed'
 import ScannerTwo from './ScannerTwo';
+import { fetchByBarcode } from './FetchByBarcode'
 
 const Connection = ({ScannerProps}:any) => {
     const [scannedItems, setScannedItems] = useState<any[]>([])
     const [scannedItemName, setScannedItemName] = useState('')
     const [scannedCode, setscannedCode] = useState('')
     const [showScannerTwo, setshowScannerTwo] = useState(true)
+    const [result, setResult] = useState('')
 
     useEffect(() => {}, [])
 
@@ -17,7 +19,7 @@ const Connection = ({ScannerProps}:any) => {
     const addToDatabase = async () => {
         console.log('ADDED');
 
-        const doc = addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + scannedCode})
+        const doc = await addDoc(collection(FIRESTORE_DB, 'scans'), {name: scannedItemName, barcode: + scannedCode})
         console.log('Name:' + scannedItemName ,'\nBarcode:' + scannedCode);   
     }
 
@@ -39,59 +41,23 @@ const Connection = ({ScannerProps}:any) => {
             console.log('no such document');
             
         }}
-
-    const fetchByBarcode = async () => {
-        const scansRef = collection(FIRESTORE_DB, 'scans')
-
-        
-        // Use the 'where' method to filter documents based on the 'barcode' field
-        const q = query(scansRef, where('barcode', '==', scannedCodeNumber));        
-        const snapshot = await getDocs(q)
-        
-        getDocs(q)
-            .then((snapshot) => {
-                let scans: { id: string; name?:string}[] = []
-                snapshot.docs.forEach((doc) =>{
-                    scans.push({
-                        ...doc.data(), id: doc.id,
-                        
-                    })
-                })
-                console.log('Scans: ',scans);
-                console.log();
-                
-                
-                const myObj = {'id': 1, 'barcode': 'asdasdad'}
-                console.log(myObj.barcode);
-                console.log('scans:' ,scans);
-                
-                const key = [scans]
-                for (const key of scans){
-
-                    console.log('key.name: ', key.name); 
-                }
-                
-                
-                
-                // const docRef = doc(FIRESTORE_DB, 'barcode','7311250004926')
-                // onSnapshot(docRef,(doc) => {
-                //     console.log('doc.data: ',doc.data(),doc.id);
-                    
-                // })
-            })
-        
-        
-
-
-    }
-
-
-
-    const handleBarCodeScanned = (data: string) => {
-        console.log('Scanned data: ' + data);
-        setscannedCode(data)
-        setshowScannerTwo(false)
-      }
+        const handleBarCodeScanned = async (data: string) => {
+            const items = await fetchByBarcode(data);
+    
+            if(items.length > 0){
+                const itemName = items[0].name;
+            
+            console.log('Fetched scan: ', items );
+            console.log('Scanned data: ' , items , 'Name: ', itemName);
+            setscannedCode(data)
+            setshowScannerTwo(false)
+            setResult(itemName || '')
+          } else {
+            setResult('Saknas')
+            setscannedCode(data)
+            setshowScannerTwo(false)
+          }
+        }
 
   return (
     
@@ -106,6 +72,7 @@ const Connection = ({ScannerProps}:any) => {
 
         <View style={styles.scanBox}>
             <Text style={styles.scanText}>Scanned code: {scannedCode}</Text>
+            <Text style={styles.scanText}>Existing name: {result}</Text>
         </View>
 
         <TextInput style={styles.input} placeholder='Add item name' onChangeText={(text: any) => setScannedItemName(text)} value={scannedItemName}/>
@@ -115,10 +82,6 @@ const Connection = ({ScannerProps}:any) => {
         <Pressable style={styles.button}onPress={fetchById}>
             <Text style={styles.inputText}>Fetch by ID</Text>
         </Pressable>
-        <Pressable style={styles.button}onPress={fetchByBarcode}>
-            <Text style={styles.inputText}>Fetch DB by barcode</Text>
-        </Pressable>
-
         <Pressable style={styles.back} onPress={()=>setshowScannerTwo(true)}>
             <Text style={styles.inputText}>back to scanner</Text>
         </Pressable>
