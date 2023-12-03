@@ -19,11 +19,10 @@ function RenderImage(props: Props) {
     const [barcodeData, setBarcodeData] = useState<{ name?: string}[]>([]);
     //const [imageRequest, setImageRequest] = useState('');
     const [promptString, setPromptString] = useState('');
+    const [switchExecuted, setSwitchExecuted] = useState(false);
 
     const apiUrl = process.env.EXPO_PUBLIC_OPENAI_KEY;
-    console.log('I RenderImage: '+ scanOne +', '+ scanTwo +' and ' + scanThree);
 
-    
               useEffect(() => {
   
                 const fetchData = async () => {
@@ -32,30 +31,36 @@ function RenderImage(props: Props) {
                   const result = await fetchByBarcode(scanOne);
                   console.log('Fetched scanOne: ', scanOne , ' Result: ', result);
                   results.push(result);
+                  
                 }
                 if (scanTwo) {
                   const result = await fetchByBarcode(scanTwo);
                   console.log('Fetched scanTwo: ', scanTwo , ' Result: ', result);
                   results.push(result);
+                  
                 }
                 if (scanThree) {
-                const result = await fetchByBarcode(scanThree);
+                let result = await fetchByBarcode(scanThree);
                   console.log('Fetched scanThree: ', scanThree , ' Result: ', result);
                   results.push(result);
+                  
                 }
+                
                 setBarcodeData(results.flat())
+                console.log('Results: ',results.flat());
                 
               }
                 fetchData();
               }, [scanOne, scanTwo, scanThree]);
-              const [name1, name2, name3] = barcodeData.map((data) => data.name || '');
+              const [name1, name2, name3] = barcodeData.map((data) => data.name || 'default');
+              
     console.log('Fetched names: ',name1, name2, name3);
     
     //let imageRequest = `Generate a happy toon character mixed of ${name1} and ${name2} with a hat of ${name3}.`;
     //console.log(imageRequest);
     
-        
-      useEffect(() => { 
+        if(name1 && name2 && name3 && !switchExecuted) {
+     
         const random = 
         Math.floor(Math.random() * 10) +1
         
@@ -99,9 +104,15 @@ function RenderImage(props: Props) {
                                   setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its tounge`); 
                                   break;
         }
-      console.log(promptString);
-      imageGenerator();
-    }, [barcodeData])
+        setSwitchExecuted(true);
+        console.log('PrompString: ', promptString);
+        
+      }
+        useEffect(()=> {
+          if(promptString){
+            imageGenerator();
+          }
+        }, [promptString])
     
     const imageGenerator = async () =>{
         if(!apiUrl){
