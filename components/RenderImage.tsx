@@ -31,24 +31,30 @@ function RenderImage(props: Props) {
                   const result = await fetchByBarcode(scanOne);
                   console.log('Fetched scanOne: ', scanOne , ' Result: ', result);
                   results.push(result);
-                  
+                  if(Array.isArray(result)){
+                    results.push({ id: 'uniqueId', name: 'tomato'});
+                  }
                 }
                 if (scanTwo) {
                   const result = await fetchByBarcode(scanTwo);
                   console.log('Fetched scanTwo: ', scanTwo , ' Result: ', result);
                   results.push(result);
-                  
+                  if(Array.isArray(result)){
+                    results.push({ id: 'uniqueId', name: 'orange'});
+                  }
                 }
                 if (scanThree) {
                 let result = await fetchByBarcode(scanThree);
                   console.log('Fetched scanThree: ', scanThree , ' Result: ', result);
                   results.push(result);
-                  
+                  if(Array.isArray(result)){
+                    results.push({ id: 'uniqueId', name: 'potato'});
+                  }
                 }
                 
                 setBarcodeData(results.flat())
                 console.log('Results: ',results.flat());
-                
+                setSwitchExecuted(true);
               }
                 fetchData();
               }, [scanOne, scanTwo, scanThree]);
