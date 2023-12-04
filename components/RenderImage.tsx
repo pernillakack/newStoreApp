@@ -77,37 +77,37 @@ function RenderImage(props: Props) {
         const safeName3 = name3 || 'apple';
         switch(random){
             case 1:
-                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
+                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
                 break;
               case 2:
-                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
+                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
                   break;
                 case 3:
-                  setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} playing with a ${safeName3}`);
+                  setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} playing with a ${safeName3} with a background color of #2A232D`);
                     break;
                   case 4:
-                    setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
+                    setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
                       break;
                     case 5:
-                      setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
+                      setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
                         break;
                       case 6:
-                        setPromptString(`Generate toon characters made out of ${safeName1}, ${safeName2} and ${safeName3} playing an having fun in water`);
+                        setPromptString(`Generate toon characters made out of ${safeName1}, ${safeName2} and ${safeName3} playing an having fun in water with a background color of #2A232D`);
                           break;
                         case 7:
-                          setPromptString(`Generate toon characters painting other toon characters out of ${safeName1}, ${safeName2} and ${safeName3}`);
+                          setPromptString(`Generate toon characters painting other toon characters out of ${safeName1}, ${safeName2} and ${safeName3} with a background color of #2A232D`);
                             break; 
                           case 8:
-                            setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3} smiling and sticking out its tounge`);
+                            setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3} smiling and sticking out its tounge with a background color of #2A232D`);
                               break;                           
                             case 9:
-                              setPromptString(`Generate toon characters looking like ${safeName1}, ${safeName2} baking a cake looking like ${safeName3}`);
+                              setPromptString(`Generate toon characters looking like ${safeName1}, ${safeName2} baking a cake looking like ${safeName3} with a background color of #2A232D`);
                                 break;
                               case 10:
-                                setPromptString(`Generate a toon character mixed of ${safeName1} and ${safeName2} with a hat of ${safeName3}`);
+                                setPromptString(`Generate a toon character mixed of ${safeName1} and ${safeName2} with a hat of ${safeName3} with a background color of #2A232D`);
                                   break;
                                 default:
-                                  setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its tounge`); 
+                                  setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its tounge with a background color of #2A232D`); 
                                   break;
         }
         setSwitchExecuted(true);
