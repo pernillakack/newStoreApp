@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "newStoreApp",
-    "slug": "newStoreApp",
+    "name": "AI Funscan",
+    "slug": "ai_funscan",
+    "description": "Gör det roligare i mataffären genom att scanna koder och låta AI rita roliga bilder utifrån artiklarna",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/paintscale.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
