@@ -9,7 +9,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/paintscale.png",
+      "image": "./assets/images/paintScale.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
