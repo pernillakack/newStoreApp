@@ -14,7 +14,7 @@ function howToModal (){
             <Modal
                 visible={visible}
             >
-            <SafeAreaView style={styles.modalContainer}>
+            <SafeAreaView style={styles.visibleModalContainer}>
                 <Button title="Hide" onPress={hide}/>
             </SafeAreaView>
             </Modal>
@@ -29,8 +29,18 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         backgroundColor:'#DDD',
+        width: '100%',
+        height:'50%'
         
-    }
+    },
+    visibleModalContainer:{
+        marginTop:100,
+        flex:1,
+        height:'100%',
+        width:'100%',
+        alignItems:'center',
+        backgroundColor:'grey'
+    },
 
 });
 

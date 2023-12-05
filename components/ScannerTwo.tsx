@@ -69,6 +69,8 @@ const [text, setText] = useState('Scan barcode: ');
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      width:'100%',
+      height:'100%',
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
@@ -91,11 +93,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
-    container2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    }
+
   });
   
 export default ScannerTwo;

@@ -15,7 +15,6 @@ export default function ModalScreen() {
   return (
     <View style={styles.container}>
       <Connection/>
-      {/* <HowToModal/> */}
     </View>
   );
 }
@@ -26,6 +25,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width:'100%',
+    height:'100%'
   },
 
   title: {

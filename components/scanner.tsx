@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Button, Pressable, ImageBackground } from 'react-native';
 import { BarCodeScanner} from 'expo-barcode-scanner';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
@@ -23,19 +23,19 @@ switch(newCodes.length){
     break;
     case 1:
       buttonTitle='Skanna andra koden';
-      icon="laugh-beam";
+      // icon="laugh-beam";
       break;
       case 2:
         buttonTitle='Skanna sista koden';
-        icon='grin-stars';
+        // icon='grin-stars';
         break;
         case 3:
           buttonTitle='Bra jobbat! Nu fixar vi bilden :)';
-          icon='image';
+          // icon='image';
           break;
           default:
             buttonTitle= 'Vad händer?! :)'
-            icon='poo';
+            // icon='poo';
 }
 
   const grantedCameraPermission = () => {
@@ -86,52 +86,60 @@ switch(newCodes.length){
  
 
 return(
-    <View style={styles.container}>
-      <View style={styles.barcodebox}>
+    <View style={styles.container2}>
+      <ImageBackground source={require('../assets/images/resultpageFrame1.png')}  style={styles.backgroundImage}>
+            <View style={styles.barcodebox}>
         <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned }
-        style = {{height:400, width: 400}}/>
+        style = {{height:280, width: 290}}/>
       </View>
       <Text style={styles.maintext}>{text}</Text>
       {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
-      <Text><FontAwesome5 name={icon} size={100} color="black" /></Text>
+      
+      </ImageBackground>
+      
     </View>  
 )
 }
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      width:'100%',
+      height:'100%',
+      backgroundColor: '#fffff',
       alignItems: 'center',
       justifyContent: 'center',
     },
     maintext: {
+      flex:0,
+      width:210,
       fontSize: 16,
       margin: 20,
+      backgroundColor:'green',
     },
     barcodebox: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 300,
-      width: 300,
+      flex:1,
+      marginTop:75,
       overflow: 'hidden',
-      borderRadius: 30,
-      backgroundColor: 'tomato'
+      borderRadius: 25,
+      justifyContent:'center',
+      alignItems:'center',
     },
-    viewStyle: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
+
     container2: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width:'100%',
+    height:'100%',
+
     },
     image: {
     width: 200, // Anpassa storleken efter ditt behov
     height: 200,
-    }
+    },
+    backgroundImage:{
+      height:'100%',
+      witdth:'100%',
+    },
   });
   
 export default Scanner;
