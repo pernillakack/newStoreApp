@@ -2,6 +2,7 @@
   "expo": {
     "name": "AI Funscan",
     "slug": "ai_funscan",
+    "owner": "funstore",
     "description": "Gör det roligare i mataffären genom att scanna koder och låta AI rita roliga bilder utifrån artiklarna",
     "version": "1.0.0",
     "orientation": "portrait",
