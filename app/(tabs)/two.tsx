@@ -33,7 +33,6 @@ export default function TabTwoScreen(props: Props) {
         <RenderImage scannedItems={scannedData} setShowRenderImage={setShowRenderImage} />
       ) : (
         <>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <Scanner scannedItems={(scanOne, scanTwo, scanThree) => handleScannedItems(scanOne, scanTwo, scanThree)} />
         </>
       )}
@@ -52,11 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+
   image: {
     width: 300,
     height: 300,
