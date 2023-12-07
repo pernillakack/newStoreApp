@@ -1,43 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import Scanner from '../../components/scanner';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import { View } from '../../components/Themed';
+import React from 'react';
+import Connection from '../../components/connection';
 
-import RenderImage from '../../components/RenderImage';
+export default function TabTwoScreen() {
 
-
-
-interface Props{
-  scannedItems: {scanOne: string, scanTwo: string, scanThree: string}
-  setShowRenderImage: Dispatch<SetStateAction<boolean>>;
-}
-
-export default function TabTwoScreen(props: Props) {
-  const[showRenderImage, setShowRenderImage] = useState(false);
-  const[scannedData, setScannedData] = useState({scanOne:'', scanTwo:'', scanThree:''})
-
-  function handleScannedItems(scanOne: string, scanTwo: string, scanThree: string) {
-
-    if(scanThree){
-      console.log('Tillbaka i tabTwo och if(scanThree)')
-      setShowRenderImage(true);
-      setScannedData({scanOne, scanTwo, scanThree})
-    }
-    
-    console.log('ScannedItems from TabTwoScreen, 1: '+ scanOne + ' 2: '+ scanTwo + ' 3: ' + scanThree);
-  }
-  
   return (
     <View style={styles.container}>
-      {showRenderImage ? (
-        <RenderImage scannedItems={scannedData} setShowRenderImage={setShowRenderImage} />
-      ) : (
-        <>
-      <Text style={styles.title}>Scanner</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Scanner scannedItems={(scanOne, scanTwo, scanThree) => handleScannedItems(scanOne, scanTwo, scanThree)} />
-        </>
-      )}
+     <Connection />
     </View>
   );
 }

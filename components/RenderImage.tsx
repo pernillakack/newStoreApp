@@ -6,12 +6,14 @@ import { fetchByBarcode } from "./FetchByBarcode";
 
 interface Props {
   scannedItems: {scanOne: string; scanTwo: string; scanThree: string};
-  setShowRenderImage: (open: boolean) => void;
+  setShowScanner: (open: boolean) => void;
+
 }
 
 function RenderImage(props: Props) {
   const { scanOne, scanTwo, scanThree } = props.scannedItems;
-  const {setShowRenderImage} = props;
+  const {setShowScanner} = props;
+  
 
     const [image_url, setImage_url] = useState('/');
     //const imageSource = { uri: image_url };
@@ -32,7 +34,7 @@ function RenderImage(props: Props) {
                   console.log('Fetched scanOne: ', scanOne , ' Result: ', result);
                   results.push(result);
                   if(Array.isArray(result)){
-                    results.push({ id: 'uniqueId', name: 'tomato'});
+                    results.push({ id: 'uniqueId', name: 'mustard'});
                   }
                 }
                 if (scanTwo) {
@@ -73,41 +75,41 @@ function RenderImage(props: Props) {
         console.log( 'randomNumber', random)
 
         const safeName1 = name1 || 'sausage';
-        const safeName2 = name2 || 'tomato';
+        const safeName2 = name2 || 'milk';
         const safeName3 = name3 || 'apple';
         switch(random){
             case 1:
-                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                setPromptString(`Animate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} `);
                 break;
               case 2:
-                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                setPromptString(`Animate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} `);
                   break;
                 case 3:
-                  setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} playing with a ${safeName3} with a background color of #2A232D`);
+                  setPromptString(`Animate two toon characters made out of ${safeName1} and ${safeName2} playing with a ${safeName3} `);
                     break;
                   case 4:
-                    setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                    setPromptString(`Animate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} `);
                       break;
                     case 5:
-                      setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                      setPromptString(`Animate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} `);
                         break;
                       case 6:
-                        setPromptString(`Generate toon characters made out of ${safeName1}, ${safeName2} and ${safeName3} playing an having fun in water with a background color of #2A232D`);
+                        setPromptString(`Animate toon characters made out of ${safeName1}, ${safeName2} and ${safeName3} playing an having fun in water `);
                           break;
                         case 7:
-                          setPromptString(`Generate toon characters painting other toon characters out of ${safeName1}, ${safeName2} and ${safeName3} with a background color of #2A232D`);
+                          setPromptString(`Animate toon characters painting other toon characters out of ${safeName1}, ${safeName2} and ${safeName3} `);
                             break; 
                           case 8:
-                            setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3} smiling and sticking out its tounge with a background color of #2A232D`);
+                            setPromptString(`Animate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3} smiling and sticking out its tounge `);
                               break;                           
                             case 9:
-                              setPromptString(`Generate toon characters looking like ${safeName1}, ${safeName2} baking a cake looking like ${safeName3} with a background color of #2A232D`);
+                              setPromptString(`Animate toon characters looking like ${safeName1}, ${safeName2} baking a cake looking like ${safeName3} `);
                                 break;
                               case 10:
-                                setPromptString(`Generate a toon character mixed of ${safeName1} and ${safeName2} with a hat of ${safeName3} with a background color of #2A232D`);
+                                setPromptString(`Animate a toon character mixed of ${safeName1} and ${safeName2} with a hat of ${safeName3} `);
                                   break;
                                 default:
-                                  setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its tounge with a background color of #2A232D`); 
+                                  setPromptString(`Animate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its tounge `); 
                                   break;
         }
         setSwitchExecuted(true);
@@ -170,7 +172,7 @@ function RenderImage(props: Props) {
   </View>
   
       <View>
-        <Button title='Tillbaka till scannern' onPress={()=> setShowRenderImage(false)} />
+        <Button title='Tillbaka till scannern' onPress={()=> setShowScanner(false)} />
       </View>
     </View>
   );

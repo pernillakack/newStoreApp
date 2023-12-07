@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { FIREBASE_APP, FIRESTORE_DB } from '../firebaseConfig'
 import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore'
 import { Text, View} from './Themed'
-import ScannerTwo from './ScannerTwo';
+import Scanner from './scanner';
 import { fetchByBarcode } from './FetchByBarcode'
 
 const Connection = ({ScannerProps}:any) => {
     const [scannedItems, setScannedItems] = useState<any[]>([])
     const [scannedItemName, setScannedItemName] = useState('')
     const [scannedCode, setscannedCode] = useState('')
-    const [showScannerTwo, setshowScannerTwo] = useState(true)
+    const [showScanner, setshowScanner] = useState(true)
     const [result, setResult] = useState('')
 
     useEffect(() => {}, [])
@@ -50,12 +50,12 @@ const Connection = ({ScannerProps}:any) => {
             console.log('Fetched scan: ', items );
             console.log('Scanned data: ' , items , 'Name: ', itemName);
             setscannedCode(data)
-            setshowScannerTwo(false)
+            setshowScanner(false)
             setResult(itemName || '')
           } else {
             setResult('Saknas')
             setscannedCode(data)
-            setshowScannerTwo(false)
+            setshowScanner(false)
           }
         }
 
@@ -64,8 +64,8 @@ const Connection = ({ScannerProps}:any) => {
     <View>
     
     <View style={styles.scanContainer}>
-      {showScannerTwo ? (
-      <ScannerTwo  onBarCodeScanned={handleBarCodeScanned}/>
+      {showScanner ? (
+      <Scanner  onBarCodeScanned={handleBarCodeScanned}/>
 
       ) : (
         <View style ={styles.container}>
@@ -82,7 +82,7 @@ const Connection = ({ScannerProps}:any) => {
         <Pressable style={styles.button}onPress={fetchById}>
             <Text style={styles.inputText}>Fetch by ID</Text>
         </Pressable>
-        <Pressable style={styles.back} onPress={()=>setshowScannerTwo(true)}>
+        <Pressable style={styles.back} onPress={()=>setshowScanner(true)}>
             <Text style={styles.inputText}>back to scanner</Text>
         </Pressable>
 

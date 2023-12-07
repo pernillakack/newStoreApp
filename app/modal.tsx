@@ -4,7 +4,7 @@ import { Platform, StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import React from 'react';
-import ScannerTwo from '../components/ScannerTwo';
+import ScannerTwo from '../components/scanner';
 import Connection from '../components/connection';
 import HowToModal from './howToModal';
 
@@ -14,8 +14,7 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
-      <Connection/>
-      {/* <HowToModal/> */}
+     
     </View>
   );
 }
