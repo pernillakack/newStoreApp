@@ -1,7 +1,8 @@
-import { View, StyleSheet, Button, Image } from "react-native";
+import { View, StyleSheet, Button, Image, ImageBackground } from "react-native";
 import React, { useState, useEffect } from "react";
 import {saveImage} from "./SaveImage";
 import { fetchByBarcode } from "./FetchByBarcode";
+import { BarCodeScanner } from "expo-barcode-scanner";
 
 
 interface Props {
@@ -77,37 +78,37 @@ function RenderImage(props: Props) {
         const safeName3 = name3 || 'apple';
         switch(random){
             case 1:
-                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                 break;
               case 2:
-                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                   break;
                 case 3:
-                  setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} playing with a ${safeName3} with a background color of #2A232D`);
+                  setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} playing with a ${safeName3}`);
                     break;
                   case 4:
-                    setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                    setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                       break;
                     case 5:
-                      setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3} with a background color of #2A232D`);
+                      setPromptString(`Generate two toon characters made out of ${safeName1} and ${safeName2} dancing with a ${safeName3}`);
                         break;
                       case 6:
-                        setPromptString(`Generate toon characters made out of ${safeName1}, ${safeName2} and ${safeName3} playing an having fun in water with a background color of #2A232D`);
+                        setPromptString(`Generate toon characters made out of ${safeName1}, ${safeName2} and ${safeName3} playing an having fun in water`);
                           break;
                         case 7:
-                          setPromptString(`Generate toon characters painting other toon characters out of ${safeName1}, ${safeName2} and ${safeName3} with a background color of #2A232D`);
+                          setPromptString(`Generate toon characters painting other toon characters out of ${safeName1}, ${safeName2} and ${safeName3}`);
                             break; 
                           case 8:
-                            setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3} smiling and sticking out its tounge with a background color of #2A232D`);
+                            setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3} smiling and sticking out its tounge`);
                               break;                           
                             case 9:
-                              setPromptString(`Generate toon characters looking like ${safeName1}, ${safeName2} baking a cake looking like ${safeName3} with a background color of #2A232D`);
+                              setPromptString(`Generate toon characters looking like ${safeName1}, ${safeName2} baking a cake looking like ${safeName3}`);
                                 break;
                               case 10:
-                                setPromptString(`Generate a toon character mixed of ${safeName1} and ${safeName2} with a hat of ${safeName3} with a background color of #2A232D`);
+                                setPromptString(`Generate a toon character mixed of ${safeName1} and ${safeName2} with a hat of ${safeName3}`);
                                   break;
                                 default:
-                                  setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its tounge with a background color of #2A232D`); 
+                                  setPromptString(`Generate a toon character made combined out of ${safeName1}, ${safeName2} and ${safeName3}smiling and sticking out its toungea`); 
                                   break;
         }
         setSwitchExecuted(true);
@@ -161,7 +162,9 @@ function RenderImage(props: Props) {
 
   return(
     <View style={styles.container}>
-    <Image
+            <ImageBackground source={require('../assets/images/2.png')}  style={styles.backgroundImage}>
+  
+            <Image
       source={{uri: image_url}}
       style={styles.image}
     />
@@ -169,21 +172,31 @@ function RenderImage(props: Props) {
   <Button title={'Spara bild'} onPress={() => saveImage(image_url)} />
   </View>
   
-      <View>
+      <View>  
         <Button title='Tillbaka till scannern' onPress={()=> setShowRenderImage(false)} />
       </View>
+      </ImageBackground>
+
     </View>
   );
   }
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
           },
           image: {
-            width: 300,
-            height: 400,
-          }
+            marginTop:100,
+            width: 500,
+            height: 500,
+            maxHeight:'50%',
+            maxWidth:'100%',
+            border:'solid',
+            borderRadius:50,
+          },
+          backgroundImage:{
+            height:'100%',
+            width:'100%',
+          },
     })
     export default RenderImage;

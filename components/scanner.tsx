@@ -87,14 +87,14 @@ switch(newCodes.length){
 
 return(
     <View style={styles.container2}>
-      <ImageBackground source={require('../assets/images/3.png')}  style={styles.backgroundImage}>
+      <ImageBackground source={require('../assets/images/7201280.png')}  style={styles.backgroundImage}>
       <View style={styles.barcodebox}>
         <BarCodeScanner style={styles.scanner}
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned }
         />
       </View>
       <Text style={styles.maintext}>{text}</Text>
-      {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)} color='tomato'></Button> }
+      {scanned && <Button title={buttonTitle} onPress={() => setScanned(false)}></Button> }
       
       </ImageBackground>
       
@@ -106,31 +106,31 @@ const styles = StyleSheet.create({
       flex: 1,
       width:'100%',
       height:'100%',
-      backgroundColor: '#fffff',
+      backgroundColor: 'tomato',
       alignItems: 'center',
       justifyContent: 'center',
-      position: 'absolute',
-      zIndex: 1,
     },
     maintext: {
-      flex:1,
-      width:210,
+      alignSelf:'center',
+      justifyContent:'center',
+      textAlign:'center',
+      width:'50%',
       fontSize: 16,
-      margin: 20,
       backgroundColor:'green',
-      position: 'absolute',
     },
     barcodebox: {
-      flex:1,
+      width:'100%',
+      height:500,
       alignItems: 'center',
       justifyContent: 'center',
     },
     scanner:{
-      height:200,
+      height:160,
       width:300,
       borderRadius:25,
-    },
+      
 
+    },
     container2: {
     flex: 1,
     width:'100%',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     },
     backgroundImage:{
       height:'100%',
-      witdth:'100%',
+      width:'100%',
     },
   });
   
