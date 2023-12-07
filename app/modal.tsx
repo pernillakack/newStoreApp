@@ -7,6 +7,7 @@ import React from 'react';
 import ScannerTwo from '../components/ScannerTwo';
 import Connection from '../components/connection';
 import HowToModal from './howToModal';
+import Loadingvideo from '../components/LoadingVideo';
 
 export default function ModalScreen() {
 
@@ -15,6 +16,7 @@ export default function ModalScreen() {
   return (
     <View style={styles.container}>
       <Connection/>
+      {/* <Loadingvideo/> */}
     </View>
   );
 }
