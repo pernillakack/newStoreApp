@@ -191,7 +191,6 @@ function RenderImage(props: Props) {
             height: 500,
             maxHeight:'50%',
             maxWidth:'100%',
-            border:'solid',
             borderRadius:50,
           },
           backgroundImage:{

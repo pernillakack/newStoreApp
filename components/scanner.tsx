@@ -110,6 +110,10 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    backgroundImage:{
+      height:'100%',
+      width:'100%',
+    },
     maintext: {
       alignSelf:'center',
       justifyContent:'center',
@@ -119,32 +123,31 @@ const styles = StyleSheet.create({
       backgroundColor:'green',
     },
     barcodebox: {
-      width:'100%',
-      height:500,
+      width:'50%',
+      height:100,
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius:25,
+      position: 'fixed',
+      backgroundColor:'tomato',
+      overflow:'hidden'
+
     },
     scanner:{
-      height:160,
-      width:300,
-      borderRadius:25,
-      
-
+      height:100,
+      width:260,
+      position: 'fixed',
+    
     },
     container2: {
-    flex: 1,
-    width:'100%',
-    height:'100%',
-
-    },
-    image: {
-    width: 200, // Anpassa storleken efter ditt behov
-    height: 200,
-    },
-    backgroundImage:{
-      height:'100%',
+      flex:1,
       width:'100%',
+      height:'100%',
+      justifyContent:'center',
+      alignItems:'center'
     },
+
+
   });
   
 export default Scanner;

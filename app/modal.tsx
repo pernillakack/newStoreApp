@@ -15,8 +15,8 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
-      <Connection/>
-      {/* <Loadingvideo/> */}
+      {/* <Connection/> */}
+      <Loadingvideo/>
     </View>
   );
 }

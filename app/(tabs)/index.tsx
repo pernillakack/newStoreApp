@@ -29,21 +29,19 @@ export default function TabOneScreen({ScannerProps}:any) {
 
     return(
       <View style={styles.container}>
+        <ImageBackground source={require('../../assets/images/splashScreenFunstorePNG.png')}  style={styles.backgroundImage}>
         
           {/* <Image source={require('../../assets/images/paintScale.jpg')}/> */}
-        <Pressable onPress={nextPress}>
+        {/* <Pressable onPress={nextPress}>
           <Image
-            style={{ 
-              width: 390,
-              height: 700,
-            }}
+            style={styles.backgroundImage}
             source={
-              require('../../assets/images/paintScale.jpg')
+              require('../../assets/images/splashScreenFunstorePNG.png')
             }
           />
-        </Pressable>
+        </Pressable> */}
         
-
+        </ImageBackground>
       </View>   
     )
   }
@@ -53,6 +51,8 @@ const styles = StyleSheet.create({
   
   container: {
     flex: 1,
+    height:'100%',
+    width:'100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -61,7 +61,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  image: {
-    width: 150,
-    height: 150,
-  }});
+  backgroundImage:{
+    flex:1,
+    height:'100%',
+    width:'100%',
+    maxHeight:1366,
+    maxWidth:1024,
+  }
+
+});
